@@ -3,228 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Volei Pro - Hamilton Jr</title>
+    <title>Volei Pro - Regra Alínea d)</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0b0f1a;
-            --card: rgba(30, 41, 59, 0.7);
-            --primary: #38bdf8;
-            --accent: #818cf8;
-            --success: #22c55e;
-            --white: #f8fafc;
-            --border: rgba(255, 255, 255, 0.1);
+            --bg: #0b0f1a; --card: rgba(30, 41, 59, 0.7);
+            --primary: #38bdf8; --accent: #f43f5e; --success: #22c55e;
+            --white: #f8fafc; --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at top right, #1e293b, #0b0f1a);
-            color: var(--white);
-            margin: 0;
-            padding-bottom: 100px;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: var(--bg); color: var(--white);
+            margin: 0; padding-bottom: 90px;
         }
 
-        /* Tela de Login */
         #login-screen {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
+            position: fixed; inset: 0; background: var(--bg);
+            display: flex; align-items: center; justify-content: center; z-index: 2000;
         }
 
         .login-box {
-            background: var(--card);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 28px;
-            border: 1px solid var(--border);
-            text-align: center;
-            width: 85%;
-            max-width: 350px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: var(--card); backdrop-filter: blur(15px);
+            padding: 30px; border-radius: 24px; border: 1px solid var(--border);
+            text-align: center; width: 80%; max-width: 300px;
         }
 
         input[type="password"] {
-            width: 100%;
-            padding: 14px;
-            margin: 24px 0;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: rgba(15, 23, 42, 0.9);
-            color: white;
-            font-size: 16px;
-            text-align: center;
-            box-sizing: border-box;
-            outline: none;
+            width: 100%; padding: 12px; margin: 20px 0; border-radius: 10px;
+            border: 1px solid var(--border); background: #1e293b; color: white; text-align: center;
         }
 
-        .btn-entrar {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            background: var(--primary);
-            color: var(--bg);
-            font-weight: 700;
-            cursor: pointer;
-        }
+        header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { margin: 0; font-size: 1rem; font-weight: 800; color: var(--primary); }
 
-        /* Header */
-        header {
-            padding: 30px 20px 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .sync-badge {
-            font-size: 0.6rem;
-            background: rgba(34, 197, 94, 0.15);
-            color: #4ade80;
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            font-weight: 800;
-        }
-
-        /* Menu Inferior */
         .nav-bar {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(20px);
-            display: flex;
-            padding: 6px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            z-index: 1000;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
+            width: 95%; max-width: 400px; background: rgba(30, 41, 59, 0.9);
+            display: flex; padding: 5px; border-radius: 20px; border: 1px solid var(--border); z-index: 1000;
         }
 
         .nav-item {
-            flex: 1;
-            padding: 14px;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #64748b;
-            cursor: pointer;
-            border-radius: 18px;
-            transition: 0.3s;
+            flex: 1; padding: 10px; text-align: center; font-size: 0.75rem;
+            font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px;
         }
 
-        .nav-item.active {
-            background: var(--primary);
-            color: var(--bg);
-        }
+        .nav-item.active { background: var(--primary); color: var(--bg); }
 
-        /* Conteúdo */
-        .section { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
+        .section { display: none; padding: 10px; }
         .section.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Atletas */
+        /* Lista Atletas */
         .athlete-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            margin-bottom: 10px;
-            padding: 14px 18px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            background: var(--card); border: 1px solid var(--border);
+            margin-bottom: 6px; padding: 8px 15px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: space-between;
         }
 
-        .athlete-info { display: flex; align-items: center; gap: 15px; }
         .athlete-num {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: var(--bg);
-            font-weight: 800;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
+            background: var(--primary); color: var(--bg); font-weight: 800;
+            width: 24px; height: 24px; display: flex; align-items: center;
+            justify-content: center; border-radius: 6px; font-size: 0.75rem;
         }
 
         .switch {
-            width: 46px; height: 24px;
-            background: #334155;
-            border-radius: 20px;
-            position: relative;
-            cursor: pointer;
-            transition: 0.3s;
-            appearance: none;
-            outline: none;
+            width: 38px; height: 20px; background: #334155; border-radius: 20px;
+            position: relative; cursor: pointer; appearance: none;
         }
         .switch:checked { background: var(--success); }
         .switch::before {
-            content: ''; position: absolute;
-            width: 18px; height: 18px;
-            background: white; border-radius: 50%;
-            top: 3px; left: 3px; transition: 0.3s;
+            content: ''; position: absolute; width: 14px; height: 14px;
+            background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s;
         }
-        .switch:checked::before { left: 25px; }
+        .switch:checked::before { left: 21px; }
 
-        /* Sets */
-        .set-title { color: var(--primary); font-weight: 800; margin: 25px 0 12px; font-size: 0.9rem; text-transform: uppercase; }
-        .court {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-            background: rgba(255,255,255,0.02); padding: 12px; border-radius: 20px; border: 1px solid var(--border);
+        /* Mini Quadras com Alerta de Regra */
+        #sets-container { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        .set-mini-court {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            padding: 10px; border-radius: 15px; width: 95%; max-width: 320px;
         }
-        .pos-box { background: var(--card); padding: 10px; border-radius: 14px; text-align: center; }
-        .pos-box label { display: block; font-size: 0.55rem; color: #94a3b8; margin-bottom: 4px; font-weight: 700; }
+        .set-title { font-size: 0.8rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; text-align: left; display: flex; justify-content: space-between;}
+        
+        .regra-status { font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; }
+        .regra-ok { background: var(--success); color: white; }
+        .regra-erro { background: var(--accent); color: white; }
+
+        .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+        .pos-box { background: var(--card); padding: 5px; border-radius: 8px; text-align: center; }
+        .pos-box label { display: block; font-size: 0.5rem; color: #94a3b8; margin-bottom: 2px; }
         
         select {
             background: transparent; color: var(--white); border: none;
-            font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none;
+            font-size: 0.9rem; font-weight: 800; width: 100%; text-align: center; outline: none;
         }
+        option { background-color: #1e293b; color: white; }
+
+        .msg-regra { font-size: 0.65rem; margin-top: 8px; color: #94a3b8; line-height: 1.2; }
     </style>
 </head>
 <body>
 
 <div id="login-screen">
     <div class="login-box">
-        <h1 style="color: var(--primary); margin:0">VOLEI PRO</h1>
-        <p style="color: #94a3b8; font-size: 0.8rem; margin-top:5px">Hamilton Moraes Jr.</p>
-        <input type="password" id="passInput" placeholder="Senha de Acesso">
-        <button class="btn-entrar" onclick="checkPass()">ENTRAR</button>
+        <h1 style="color: var(--primary); font-size: 1.2rem; margin:0">VOLEI PRO</h1>
+        <input type="password" id="passInput" placeholder="Senha">
+        <button onclick="checkPass()" style="width:100%; padding:12px; border-radius:10px; border:none; background:var(--primary); font-weight:700; cursor:pointer;">ENTRAR</button>
     </div>
 </div>
 
 <header>
     <h1>INICIADAS B</h1>
-    <div id="sync-status" class="sync-badge" style="display:none;">ONLINE</div>
+    <div id="sync-status" style="display:none; font-size: 0.6rem; color: var(--success);">● LIVE</div>
 </header>
 
 <div class="nav-bar">
-    <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">CONVOCAÇÃO</div>
-    <div class="nav-item" id="btn-sets" onclick="showTab('sets')">ESCALAÇÃO</div>
+    <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">ATLETAS</div>
+    <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA</div>
 </div>
 
 <section id="convocacao" class="section active">
-    <div id="athlete-list"></div>
+    <div id="athlete-list" style="max-width:400px; margin:0 auto;"></div>
 </section>
 
 <section id="sets" class="section">
@@ -258,77 +157,98 @@
 
     let state = { conv: [], sets: {} };
 
-    // Sincronização
     onSnapshot(doc(db, "gestao", "atual"), (snap) => {
         if(snap.exists()) {
-            const data = snap.data();
-            state = {
-                conv: data.conv || [],
-                sets: data.sets || {}
-            };
+            state = snap.data();
             document.getElementById('sync-status').style.display = 'block';
         }
-        render();
-    }, (err) => {
-        console.error(err);
         render();
     });
 
     async function sync() {
-        try {
-            await setDoc(doc(db, "gestao", "atual"), state);
-        } catch (e) { console.error(e); }
+        await setDoc(doc(db, "gestao", "atual"), state);
     }
 
     window.toggle = (n) => {
-        if (!Array.isArray(state.conv)) state.conv = [];
         state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n];
-        sync();
-        render();
+        sync(); render();
     };
 
     window.updatePos = (key, val) => {
-        if (!state.sets) state.sets = {};
         state.sets[key] = val;
         sync();
     };
 
+    function getPlayersInSet(s) {
+        let players = [];
+        for(let p of [1,2,3,4,5,6]) {
+            let id = `s${s}p${p}`;
+            if(state.sets[id]) players.push(parseInt(state.sets[id]));
+        }
+        return players;
+    }
+
+    function validarRegra(setNum) {
+        if(setNum === 1) return {ok: true, msg: ""};
+        
+        let atual = getPlayersInSet(setNum);
+        let anterior = getPlayersInSet(setNum - 1);
+        let anteriorDoAnterior = setNum > 2 ? getPlayersInSet(setNum - 2) : [];
+
+        if(atual.length < 6) return {ok: true, msg: "A aguardar 6 jogadoras..."};
+
+        // 1. Regra dos 3 novos jogadores (em relação ao set anterior)
+        let novos = atual.filter(p => !anterior.includes(p));
+        if(novos.length < 3) return {ok: false, msg: `ERRO: Precisas de pelo menos 3 jogadoras que não estiveram no Set ${setNum-1}.`};
+
+        // 2. Regra da continuidade (alinhar nos dois anteriores)
+        if(setNum >= 3) {
+            let infratores = atual.filter(p => anterior.includes(p) && anteriorDoAnterior.includes(p));
+            if(infratores.length > 0) {
+                return {ok: false, msg: `ERRO: # ${infratores.join(', ')} jogaram os dois sets anteriores. Devem descansar!`};
+            }
+        }
+
+        return {ok: true, msg: "Formação Legal!"};
+    }
+
     function render() {
         const list = document.getElementById('athlete-list');
-        if(!list) return;
-
         list.innerHTML = atletas.map(a => `
             <div class="athlete-card">
                 <div class="athlete-info">
                     <div class="athlete-num">${a.n}</div>
-                    <span style="font-weight:600">${a.nome}</span>
+                    <span style="font-size:0.85rem; font-weight:600;">${a.nome}</span>
                 </div>
                 <input type="checkbox" class="switch" ${state.conv.includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
             </div>
         `).join('');
 
         const setsCont = document.getElementById('sets-container');
-        if(!setsCont) return;
-
-        setsCont.innerHTML = [1,2,3,4,5].map(s => `
-            <div class="set-title">SET ${s}</div>
-            <div class="court">
-                ${[4,3,2,5,6,1].map(p => {
-                    const id = `s${s}p${p}`;
-                    const val = state.sets[id] || "";
-                    return `
-                    <div class="pos-box">
-                        <label>POS ${p}</label>
-                        <select onchange="updatePos('${id}', this.value)">
-                            <option value="">-</option>
-                            ${state.conv.sort((a,b)=>a-b).map(n => `
-                                <option value="${n}" ${val == n ? 'selected' : ''}>${n}</option>
-                            `).join('')}
-                        </select>
-                    </div>`;
-                }).join('')}
-            </div>
-        `).join('');
+        setsCont.innerHTML = [1,2,3,4,5].map(s => {
+            const validacao = validarRegra(s);
+            return `
+            <div class="set-mini-court">
+                <div class="set-title">
+                    SET ${s}
+                    <span class="regra-status ${validacao.ok ? 'regra-ok' : 'regra-erro'}">${validacao.ok ? '✓' : '✗'}</span>
+                </div>
+                <div class="court-grid">
+                    ${[4,3,2,5,6,1].map(p => {
+                        const id = `s${s}p${p}`;
+                        return `
+                        <div class="pos-box">
+                            <label>P${p}</label>
+                            <select onchange="updatePos('${id}', this.value)">
+                                <option value="">-</option>
+                                ${state.conv.sort((a,b)=>a-b).map(n => `<option value="${n}" ${state.sets[id] == n ? 'selected' : ''}>${n}</option>`).join('')}
+                            </select>
+                        </div>`;
+                    }).join('')}
+                </div>
+                <div class="msg-regra" style="color: ${validacao.ok ? '#94a3b8' : '#f43f5e'}">${validacao.msg}</div>
+            </div>`;
+        }).join('');
     }
 
     window.showTab = (tab) => {
@@ -340,9 +260,8 @@
 
     window.checkPass = () => {
         if(document.getElementById('passInput').value === 'volei2026') {
-            document.getElementById('login-screen').style.display = 'none';
-            render();
-        } else { alert('Acesso Negado'); }
+            document.getElementById('login-screen').style.display = 'none'; render();
+        }
     };
 </script>
 </body>
