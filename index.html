@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Volei Pro - Regra Alínea d)</title>
+    <title>Volei Pro - Hamilton Jr</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0b0f1a; --card: rgba(30, 41, 59, 0.7);
+            --bg: #0b101d; --card: rgba(30, 41, 59, 0.7);
             --primary: #38bdf8; --accent: #f43f5e; --success: #22c55e;
             --white: #f8fafc; --border: rgba(255, 255, 255, 0.1);
         }
@@ -15,37 +15,43 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg); color: var(--white);
-            margin: 0; padding-bottom: 90px;
+            margin: 0; padding-bottom: 100px;
+            overflow-x: hidden;
         }
 
+        /* Login Centralizado e Fixo */
         #login-screen {
             position: fixed; inset: 0; background: var(--bg);
-            display: flex; align-items: center; justify-content: center; z-index: 2000;
+            display: flex; align-items: center; justify-content: center; z-index: 3000;
         }
 
         .login-box {
-            background: var(--card); backdrop-filter: blur(15px);
-            padding: 30px; border-radius: 24px; border: 1px solid var(--border);
-            text-align: center; width: 80%; max-width: 300px;
+            background: var(--card); backdrop-filter: blur(20px);
+            padding: 35px; border-radius: 28px; border: 1px solid var(--border);
+            text-align: center; width: 85%; max-width: 320px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        input[type="password"] {
-            width: 100%; padding: 12px; margin: 20px 0; border-radius: 10px;
-            border: 1px solid var(--border); background: #1e293b; color: white; text-align: center;
+        .login-box input {
+            width: 100%; padding: 14px; margin: 20px 0; border-radius: 12px;
+            border: 1px solid var(--border); background: #1e293b; color: white;
+            text-align: center; box-sizing: border-box; font-size: 16px;
         }
 
-        header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { margin: 0; font-size: 1rem; font-weight: 800; color: var(--primary); }
+        /* Layout Responsivo */
+        header { padding: 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; }
 
         .nav-bar {
-            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
-            width: 95%; max-width: 400px; background: rgba(30, 41, 59, 0.9);
-            display: flex; padding: 5px; border-radius: 20px; border: 1px solid var(--border); z-index: 1000;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; background: rgba(30, 41, 59, 0.95);
+            display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .nav-item {
-            flex: 1; padding: 10px; text-align: center; font-size: 0.75rem;
-            font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px;
+            flex: 1; padding: 12px; text-align: center; font-size: 0.75rem;
+            font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s;
         }
 
         .nav-item.active { background: var(--primary); color: var(--bg); }
@@ -53,77 +59,74 @@
         .section { display: none; padding: 10px; }
         .section.active { display: block; }
 
-        /* Lista Atletas */
+        /* Atletas Compactos */
+        #athlete-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; max-width: 900px; margin: 0 auto; }
         .athlete-card {
             background: var(--card); border: 1px solid var(--border);
-            margin-bottom: 6px; padding: 8px 15px; border-radius: 12px;
+            padding: 10px 15px; border-radius: 14px;
             display: flex; align-items: center; justify-content: space-between;
         }
+        .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.8rem; }
 
-        .athlete-num {
-            background: var(--primary); color: var(--bg); font-weight: 800;
-            width: 24px; height: 24px; display: flex; align-items: center;
-            justify-content: center; border-radius: 6px; font-size: 0.75rem;
+        /* Grid de Quadras (O Ponto Chave) */
+        #sets-container { 
+            display: grid; 
+            grid-template-columns: 1fr; /* 1 coluna no telemóvel */
+            gap: 20px; 
+            padding: 10px;
         }
 
-        .switch {
-            width: 38px; height: 20px; background: #334155; border-radius: 20px;
-            position: relative; cursor: pointer; appearance: none;
-        }
-        .switch:checked { background: var(--success); }
-        .switch::before {
-            content: ''; position: absolute; width: 14px; height: 14px;
-            background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s;
-        }
-        .switch:checked::before { left: 21px; }
+        @media (min-width: 600px) { #sets-container { grid-template-columns: repeat(2, 1fr); } } /* 2 colunas no Tablet vertical */
+        @media (min-width: 1000px) { #sets-container { grid-template-columns: repeat(3, 1fr); } } /* 3 colunas no PC/Tablet horizontal */
 
-        /* Mini Quadras com Alerta de Regra */
-        #sets-container { display: flex; flex-direction: column; gap: 15px; align-items: center; }
         .set-mini-court {
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            padding: 10px; border-radius: 15px; width: 95%; max-width: 320px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            padding: 12px; border-radius: 18px; position: relative;
         }
-        .set-title { font-size: 0.8rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; text-align: left; display: flex; justify-content: space-between;}
-        
-        .regra-status { font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; }
-        .regra-ok { background: var(--success); color: white; }
-        .regra-erro { background: var(--accent); color: white; }
+        .set-title { font-size: 0.8rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
 
-        .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-        .pos-box { background: var(--card); padding: 5px; border-radius: 8px; text-align: center; }
-        .pos-box label { display: block; font-size: 0.5rem; color: #94a3b8; margin-bottom: 2px; }
+        .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .pos-box { background: var(--card); padding: 8px 4px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .pos-box label { display: block; font-size: 0.55rem; color: #94a3b8; margin-bottom: 3px; font-weight: bold; }
         
         select {
             background: transparent; color: var(--white); border: none;
-            font-size: 0.9rem; font-weight: 800; width: 100%; text-align: center; outline: none;
+            font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none;
         }
-        option { background-color: #1e293b; color: white; }
+        option { background-color: #1e293b; color: white; } /* Resolve o fundo branco */
 
-        .msg-regra { font-size: 0.65rem; margin-top: 8px; color: #94a3b8; line-height: 1.2; }
+        .msg-regra { font-size: 0.65rem; margin-top: 10px; color: #94a3b8; min-height: 30px; border-top: 1px solid var(--border); padding-top: 8px; }
+
+        /* Switch Custom */
+        .switch { width: 40px; height: 22px; background: #334155; border-radius: 20px; position: relative; appearance: none; cursor: pointer; }
+        .switch:checked { background: var(--success); }
+        .switch::before { content: ''; position: absolute; width: 16px; height: 16px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
+        .switch:checked::before { left: 21px; }
     </style>
 </head>
 <body>
 
 <div id="login-screen">
     <div class="login-box">
-        <h1 style="color: var(--primary); font-size: 1.2rem; margin:0">VOLEI PRO</h1>
+        <h1 style="color: var(--primary); margin:0; font-size: 1.5rem;">VOLEI PRO</h1>
+        <p style="color: #64748b; font-size: 0.8rem; margin: 5px 0 0 0;">Hamilton Moraes Jr.</p>
         <input type="password" id="passInput" placeholder="Senha">
-        <button onclick="checkPass()" style="width:100%; padding:12px; border-radius:10px; border:none; background:var(--primary); font-weight:700; cursor:pointer;">ENTRAR</button>
+        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800; cursor:pointer;">ENTRAR</button>
     </div>
 </div>
 
 <header>
-    <h1>INICIADAS B</h1>
-    <div id="sync-status" style="display:none; font-size: 0.6rem; color: var(--success);">● LIVE</div>
+    <h1>INICIADAS B - GESTÃO</h1>
+    <div id="sync-status" style="display:none; font-size: 0.6rem; color: var(--success); margin-top: 5px;">● SISTEMA ONLINE</div>
 </header>
 
 <div class="nav-bar">
-    <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">ATLETAS</div>
-    <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA</div>
+    <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">CONVOCAR</div>
+    <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA TÁTICA</div>
 </div>
 
 <section id="convocacao" class="section active">
-    <div id="athlete-list" style="max-width:400px; margin:0 auto;"></div>
+    <div id="athlete-list"></div>
 </section>
 
 <section id="sets" class="section">
@@ -179,74 +182,58 @@
         sync();
     };
 
-    function getPlayersInSet(s) {
-        let players = [];
-        for(let p of [1,2,3,4,5,6]) {
-            let id = `s${s}p${p}`;
-            if(state.sets[id]) players.push(parseInt(state.sets[id]));
-        }
-        return players;
-    }
-
     function validarRegra(setNum) {
-        if(setNum === 1) return {ok: true, msg: ""};
+        if(setNum === 1) return {ok: true, msg: "Aguardando definição do 1º Set."};
         
-        let atual = getPlayersInSet(setNum);
-        let anterior = getPlayersInSet(setNum - 1);
-        let anteriorDoAnterior = setNum > 2 ? getPlayersInSet(setNum - 2) : [];
+        let atual = [];
+        for(let p of [1,2,3,4,5,6]) if(state.sets[`s${setNum}p${p}`]) atual.push(parseInt(state.sets[`s${setNum}p${p}`]));
+        
+        let anterior = [];
+        for(let p of [1,2,3,4,5,6]) if(state.sets[`s${setNum-1}p${p}`]) anterior.push(parseInt(state.sets[`s${setNum-1}p${p}`]));
 
-        if(atual.length < 6) return {ok: true, msg: "A aguardar 6 jogadoras..."};
+        if(atual.length < 6) return {ok: true, msg: "Preenche as 6 posições."};
 
-        // 1. Regra dos 3 novos jogadores (em relação ao set anterior)
         let novos = atual.filter(p => !anterior.includes(p));
-        if(novos.length < 3) return {ok: false, msg: `ERRO: Precisas de pelo menos 3 jogadoras que não estiveram no Set ${setNum-1}.`};
+        if(novos.length < 3) return {ok: false, msg: `✗ Alínea d): Precisas de 3 novos em relação ao Set ${setNum-1}.`};
 
-        // 2. Regra da continuidade (alinhar nos dois anteriores)
         if(setNum >= 3) {
-            let infratores = atual.filter(p => anterior.includes(p) && anteriorDoAnterior.includes(p));
-            if(infratores.length > 0) {
-                return {ok: false, msg: `ERRO: # ${infratores.join(', ')} jogaram os dois sets anteriores. Devem descansar!`};
-            }
+            let antAnt = [];
+            for(let p of [1,2,3,4,5,6]) if(state.sets[`s${setNum-2}p${p}`]) antAnt.push(parseInt(state.sets[`s${setNum-2}p${p}`]));
+            let infratores = atual.filter(p => anterior.includes(p) && antAnt.includes(p));
+            if(infratores.length > 0) return {ok: false, msg: `✗ Alínea d): # ${infratores.join(', ')} jogaram os 2 anteriores.`};
         }
 
-        return {ok: true, msg: "Formação Legal!"};
+        return {ok: true, msg: "✓ Formação válida!"};
     }
 
     function render() {
-        const list = document.getElementById('athlete-list');
-        list.innerHTML = atletas.map(a => `
+        document.getElementById('athlete-list').innerHTML = atletas.map(a => `
             <div class="athlete-card">
-                <div class="athlete-info">
+                <div style="display:flex; align-items:center; gap:8px;">
                     <div class="athlete-num">${a.n}</div>
-                    <span style="font-size:0.85rem; font-weight:600;">${a.nome}</span>
+                    <span style="font-size:0.8rem; font-weight:600;">${a.nome}</span>
                 </div>
                 <input type="checkbox" class="switch" ${state.conv.includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
             </div>
         `).join('');
 
-        const setsCont = document.getElementById('sets-container');
-        setsCont.innerHTML = [1,2,3,4,5].map(s => {
-            const validacao = validarRegra(s);
+        document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
+            const res = validarRegra(s);
             return `
             <div class="set-mini-court">
-                <div class="set-title">
-                    SET ${s}
-                    <span class="regra-status ${validacao.ok ? 'regra-ok' : 'regra-erro'}">${validacao.ok ? '✓' : '✗'}</span>
-                </div>
+                <div class="set-title">SET ${s} <span style="color:${res.ok?'var(--success)':'var(--accent)'}">${res.ok?'✓':'✗'}</span></div>
                 <div class="court-grid">
-                    ${[4,3,2,5,6,1].map(p => {
-                        const id = `s${s}p${p}`;
-                        return `
+                    ${[4,3,2,5,6,1].map(p => `
                         <div class="pos-box">
                             <label>P${p}</label>
-                            <select onchange="updatePos('${id}', this.value)">
+                            <select onchange="updatePos('s${s}p${p}', this.value)">
                                 <option value="">-</option>
-                                ${state.conv.sort((a,b)=>a-b).map(n => `<option value="${n}" ${state.sets[id] == n ? 'selected' : ''}>${n}</option>`).join('')}
+                                ${state.conv.sort((a,b)=>a-b).map(n => `<option value="${n}" ${state.sets['s'+s+'p'+p] == n ? 'selected' : ''}>${n}</option>`).join('')}
                             </select>
-                        </div>`;
-                    }).join('')}
+                        </div>
+                    `).join('')}
                 </div>
-                <div class="msg-regra" style="color: ${validacao.ok ? '#94a3b8' : '#f43f5e'}">${validacao.msg}</div>
+                <div class="msg-regra" style="color:${res.ok?'#94a3b8':'var(--accent)'}">${res.msg}</div>
             </div>`;
         }).join('');
     }
@@ -260,7 +247,8 @@
 
     window.checkPass = () => {
         if(document.getElementById('passInput').value === 'volei2026') {
-            document.getElementById('login-screen').style.display = 'none'; render();
+            document.getElementById('login-screen').style.display = 'none';
+            render();
         }
     };
 </script>
