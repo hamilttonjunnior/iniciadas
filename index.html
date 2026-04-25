@@ -19,7 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* Login */
         #login-screen {
             position: fixed; inset: 0; background: var(--bg);
             display: flex; align-items: center; justify-content: center; z-index: 3000;
@@ -37,9 +36,8 @@
             text-align: center; box-sizing: border-box; font-size: 16px;
         }
 
-        /* Header e Nav */
-        header { padding: 20px; text-align: center; }
-        header h1 { margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+        header { padding: 15px; text-align: center; }
+        header h1 { margin: 0; font-size: 1rem; font-weight: 800; color: var(--primary); }
 
         .nav-bar {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
@@ -57,44 +55,48 @@
         .section { display: none; padding: 10px; }
         .section.active { display: block; }
 
+        /* Formulário de Jogo */
+        .game-info-card {
+            background: var(--card); border: 1px solid var(--border);
+            padding: 15px; border-radius: 18px; margin-bottom: 20px;
+            max-width: 500px; margin-left: auto; margin-right: auto;
+        }
+        .game-info-card input, .game-info-card select {
+            width: 100%; padding: 10px; margin: 5px 0 12px; border-radius: 8px;
+            border: 1px solid var(--border); background: #1e293b; color: white; font-size: 0.85rem;
+            box-sizing: border-box;
+        }
+        .game-info-card label { font-size: 0.7rem; font-weight: 700; color: var(--primary); text-transform: uppercase; }
+
         /* Lista Atletas */
-        #athlete-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; max-width: 900px; margin: 0 auto; }
+        #athlete-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; max-width: 900px; margin: 0 auto; }
         .athlete-card {
             background: var(--card); border: 1px solid var(--border);
-            padding: 10px 15px; border-radius: 14px;
+            padding: 8px 12px; border-radius: 12px;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.8rem; }
+        .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
 
-        /* Quadras */
-        #sets-container { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 10px; }
-        @media (min-width: 600px) { #sets-container { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1000px) { #sets-container { grid-template-columns: repeat(3, 1fr); } }
-
-        .set-mini-court { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px; border-radius: 18px; }
-        .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-        .pos-box { background: var(--card); padding: 8px 4px; border-radius: 10px; text-align: center; }
-        
-        select { background: transparent; color: var(--white); border: none; font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none; }
-        option { background-color: #1e293b; color: white; }
-
-        /* WhatsApp Button Area */
-        .whatsapp-area {
-            max-width: 400px; margin: 20px auto; text-align: center;
-            background: rgba(34, 197, 94, 0.1); border: 1px dashed var(--success);
-            padding: 15px; border-radius: 20px;
-        }
-
+        /* WhatsApp */
         .btn-whatsapp {
-            background: var(--success); color: white; border: none; padding: 12px 20px;
+            background: var(--success); color: white; border: none; padding: 14px;
             border-radius: 12px; font-weight: 800; cursor: pointer; display: flex;
             align-items: center; justify-content: center; gap: 10px; width: 100%;
+            margin-bottom: 20px;
         }
 
-        .switch { width: 40px; height: 22px; background: #334155; border-radius: 20px; position: relative; appearance: none; cursor: pointer; }
+        /* Quadras */
+        #sets-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 10px; }
+        .set-mini-court { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px; border-radius: 18px; }
+        .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+        .pos-box { background: var(--card); padding: 6px 2px; border-radius: 8px; text-align: center; }
+        select.pos-select { background: transparent; color: var(--white); border: none; font-size: 0.9rem; font-weight: 800; width: 100%; text-align: center; outline: none; }
+        option { background-color: #1e293b; color: white; }
+
+        .switch { width: 36px; height: 20px; background: #334155; border-radius: 20px; position: relative; appearance: none; cursor: pointer; }
         .switch:checked { background: var(--success); }
-        .switch::before { content: ''; position: absolute; width: 16px; height: 16px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
-        .switch:checked::before { left: 21px; }
+        .switch::before { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
+        .switch:checked::before { left: 19px; }
     </style>
 </head>
 <body>
@@ -103,13 +105,13 @@
     <div class="login-box">
         <h1 style="color: var(--primary); margin:0;">VOLEI PRO</h1>
         <input type="password" id="passInput" placeholder="Senha">
-        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800; cursor:pointer;">ENTRAR</button>
+        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); font-weight:800;">ENTRAR</button>
     </div>
 </div>
 
 <header>
     <h1>INICIADAS B - GESTÃO</h1>
-    <div id="sync-status" style="display:none; font-size: 0.6rem; color: var(--success);">● LIVE SYNC</div>
+    <div id="sync-status" style="display:none; font-size: 0.5rem; color: var(--success);">● LIVE</div>
 </header>
 
 <div class="nav-bar">
@@ -118,11 +120,34 @@
 </div>
 
 <section id="convocacao" class="section active">
-    <div class="whatsapp-area">
+    <div class="game-info-card">
+        <label>Prova / Torneio</label>
+        <input type="text" id="game-name" value="Troféu AVB/AVVC Iniciadas B Fem">
+        
+        <label>Local / Pavilhão</label>
+        <select id="pavilion-select" onchange="toggleOtherPavilion()">
+            <option value="ES ALCAIDES FARIA">ES ALCAIDES FARIA</option>
+            <option value="MUNICIPAL DE ADÃES">MUNICIPAL DE ADÃES</option>
+            <option value="outro">OUTRO (Digitar abaixo)</option>
+        </select>
+        <input type="text" id="other-pavilion" placeholder="Nome do Pavilhão Fora" style="display:none;">
+
+        <div style="display:flex; gap:10px;">
+            <div style="flex:2;">
+                <label>Data</label>
+                <input type="text" id="game-date" placeholder="Ex: 25/04 (Sáb)">
+            </div>
+            <div style="flex:1;">
+                <label>Hora</label>
+                <input type="text" id="game-time" placeholder="12:00">
+            </div>
+        </div>
+        
         <button class="btn-whatsapp" onclick="gerarMensagem()">
-            <span style="font-size: 1.2rem;">💬</span> Gerar Lista WhatsApp
+            <span>💬</span> Copiar Convocatória WhatsApp
         </button>
     </div>
+
     <div id="athlete-list"></div>
 </section>
 
@@ -169,6 +194,32 @@
         await setDoc(doc(db, "gestao", "atual"), state);
     }
 
+    window.toggleOtherPavilion = () => {
+        const sel = document.getElementById('pavilion-select').value;
+        document.getElementById('other-pavilion').style.display = sel === 'outro' ? 'block' : 'none';
+    };
+
+    window.gerarMensagem = () => {
+        if(state.conv.length === 0) return alert("Seleciona as atletas primeiro!");
+        
+        const prova = document.getElementById('game-name').value;
+        const selPav = document.getElementById('pavilion-select').value;
+        const pav = selPav === 'outro' ? document.getElementById('other-pavilion').value : selPav;
+        const data = document.getElementById('game-date').value;
+        const hora = document.getElementById('game-time').value;
+        
+        let lista = atletas
+            .filter(a => state.conv.includes(a.n))
+            .map(a => `➡ ${a.nome}`)
+            .join('\n');
+
+        let texto = `*${prova}* \n\n🏟  *${pav}*\n\n📆  *${data}*\n⏰ *${hora}*\n(Concentração 1h antes no local)\n\n*CONVOCADAS:*\n\n${lista}`;
+        
+        navigator.clipboard.writeText(texto).then(() => {
+            alert("Lista copiada para o WhatsApp!");
+        });
+    };
+
     window.toggle = (n) => {
         state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n];
         sync(); render();
@@ -179,28 +230,12 @@
         sync();
     };
 
-    window.gerarMensagem = () => {
-        if(state.conv.length === 0) return alert("Nenhuma atleta convocada!");
-        
-        let lista = atletas
-            .filter(a => state.conv.includes(a.n))
-            .map(a => `➡ ${a.nome}`)
-            .join('\n');
-
-        let texto = `*Troféu AVB/AVVC Iniciadas B Fem* \n\n🏟  *ES ALCAIDES FARIA*\n\n📆  *25/04/2026 (Sábado)*\n⏰ *12h*\n(Concentração 11h no local)\n\n*CONVOCADAS:*\n\n${lista}`;
-        
-        // Copiar para a área de transferência
-        navigator.clipboard.writeText(texto).then(() => {
-            alert("Mensagem copiada! Agora é só colar no WhatsApp das meninas.");
-        });
-    };
-
     function render() {
         document.getElementById('athlete-list').innerHTML = atletas.map(a => `
             <div class="athlete-card">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="athlete-num">${a.n}</div>
-                    <span style="font-size:0.75rem; font-weight:600;">${a.nome}</span>
+                    <span style="font-size:0.7rem; font-weight:600;">${a.nome}</span>
                 </div>
                 <input type="checkbox" class="switch" ${state.conv.includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
             </div>
@@ -208,12 +243,12 @@
 
         document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => `
             <div class="set-mini-court">
-                <div style="font-size:0.8rem; font-weight:800; color:var(--primary); margin-bottom:10px;">SET ${s}</div>
+                <div style="font-size:0.75rem; font-weight:800; color:var(--primary); margin-bottom:8px;">SET ${s}</div>
                 <div class="court-grid">
                     ${[4,3,2,5,6,1].map(p => `
                         <div class="pos-box">
-                            <label style="font-size:0.5rem; color:#94a3b8; display:block;">P${p}</label>
-                            <select onchange="updatePos('s${s}p${p}', this.value)">
+                            <label style="font-size:0.45rem; color:#94a3b8;">P${p}</label>
+                            <select class="pos-select" onchange="updatePos('s${s}p${p}', this.value)">
                                 <option value="">-</option>
                                 ${state.conv.sort((a,b)=>a-b).map(n => `<option value="${n}" ${state.sets['s'+s+'p'+p] == n ? 'selected' : ''}>${n}</option>`).join('')}
                             </select>
