@@ -15,11 +15,11 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg); color: var(--white);
-            margin: 0; padding-bottom: 100px;
+            margin: 0; padding-bottom: 110px;
             overflow-x: hidden;
         }
 
-        /* Login Centralizado e Fixo */
+        /* Login */
         #login-screen {
             position: fixed; inset: 0; background: var(--bg);
             display: flex; align-items: center; justify-content: center; z-index: 3000;
@@ -29,7 +29,6 @@
             background: var(--card); backdrop-filter: blur(20px);
             padding: 35px; border-radius: 28px; border: 1px solid var(--border);
             text-align: center; width: 85%; max-width: 320px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .login-box input {
@@ -38,20 +37,19 @@
             text-align: center; box-sizing: border-box; font-size: 16px;
         }
 
-        /* Layout Responsivo */
+        /* Header e Nav */
         header { padding: 20px; text-align: center; }
-        header h1 { margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; }
+        header h1 { margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
 
         .nav-bar {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 400px; background: rgba(30, 41, 59, 0.95);
             display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .nav-item {
             flex: 1; padding: 12px; text-align: center; font-size: 0.75rem;
-            font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s;
+            font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px;
         }
 
         .nav-item.active { background: var(--primary); color: var(--bg); }
@@ -59,7 +57,7 @@
         .section { display: none; padding: 10px; }
         .section.active { display: block; }
 
-        /* Atletas Compactos */
+        /* Lista Atletas */
         #athlete-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; max-width: 900px; margin: 0 auto; }
         .athlete-card {
             background: var(--card); border: 1px solid var(--border);
@@ -68,36 +66,31 @@
         }
         .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.8rem; }
 
-        /* Grid de Quadras (O Ponto Chave) */
-        #sets-container { 
-            display: grid; 
-            grid-template-columns: 1fr; /* 1 coluna no telemóvel */
-            gap: 20px; 
-            padding: 10px;
-        }
+        /* Quadras */
+        #sets-container { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 10px; }
+        @media (min-width: 600px) { #sets-container { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1000px) { #sets-container { grid-template-columns: repeat(3, 1fr); } }
 
-        @media (min-width: 600px) { #sets-container { grid-template-columns: repeat(2, 1fr); } } /* 2 colunas no Tablet vertical */
-        @media (min-width: 1000px) { #sets-container { grid-template-columns: repeat(3, 1fr); } } /* 3 colunas no PC/Tablet horizontal */
-
-        .set-mini-court {
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-            padding: 12px; border-radius: 18px; position: relative;
-        }
-        .set-title { font-size: 0.8rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-
+        .set-mini-court { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px; border-radius: 18px; }
         .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-        .pos-box { background: var(--card); padding: 8px 4px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-        .pos-box label { display: block; font-size: 0.55rem; color: #94a3b8; margin-bottom: 3px; font-weight: bold; }
+        .pos-box { background: var(--card); padding: 8px 4px; border-radius: 10px; text-align: center; }
         
-        select {
-            background: transparent; color: var(--white); border: none;
-            font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none;
+        select { background: transparent; color: var(--white); border: none; font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none; }
+        option { background-color: #1e293b; color: white; }
+
+        /* WhatsApp Button Area */
+        .whatsapp-area {
+            max-width: 400px; margin: 20px auto; text-align: center;
+            background: rgba(34, 197, 94, 0.1); border: 1px dashed var(--success);
+            padding: 15px; border-radius: 20px;
         }
-        option { background-color: #1e293b; color: white; } /* Resolve o fundo branco */
 
-        .msg-regra { font-size: 0.65rem; margin-top: 10px; color: #94a3b8; min-height: 30px; border-top: 1px solid var(--border); padding-top: 8px; }
+        .btn-whatsapp {
+            background: var(--success); color: white; border: none; padding: 12px 20px;
+            border-radius: 12px; font-weight: 800; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 10px; width: 100%;
+        }
 
-        /* Switch Custom */
         .switch { width: 40px; height: 22px; background: #334155; border-radius: 20px; position: relative; appearance: none; cursor: pointer; }
         .switch:checked { background: var(--success); }
         .switch::before { content: ''; position: absolute; width: 16px; height: 16px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
@@ -108,8 +101,7 @@
 
 <div id="login-screen">
     <div class="login-box">
-        <h1 style="color: var(--primary); margin:0; font-size: 1.5rem;">VOLEI PRO</h1>
-        <p style="color: #64748b; font-size: 0.8rem; margin: 5px 0 0 0;">Hamilton Moraes Jr.</p>
+        <h1 style="color: var(--primary); margin:0;">VOLEI PRO</h1>
         <input type="password" id="passInput" placeholder="Senha">
         <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800; cursor:pointer;">ENTRAR</button>
     </div>
@@ -117,15 +109,20 @@
 
 <header>
     <h1>INICIADAS B - GESTÃO</h1>
-    <div id="sync-status" style="display:none; font-size: 0.6rem; color: var(--success); margin-top: 5px;">● SISTEMA ONLINE</div>
+    <div id="sync-status" style="display:none; font-size: 0.6rem; color: var(--success);">● LIVE SYNC</div>
 </header>
 
 <div class="nav-bar">
     <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">CONVOCAR</div>
-    <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA TÁTICA</div>
+    <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA</div>
 </div>
 
 <section id="convocacao" class="section active">
+    <div class="whatsapp-area">
+        <button class="btn-whatsapp" onclick="gerarMensagem()">
+            <span style="font-size: 1.2rem;">💬</span> Gerar Lista WhatsApp
+        </button>
+    </div>
     <div id="athlete-list"></div>
 </section>
 
@@ -150,12 +147,12 @@
     const db = getFirestore(app);
 
     const atletas = [
-        {n: 1, nome: "Carla"}, {n: 3, nome: "Barbara"}, {n: 6, nome: "Matilde R."},
-        {n: 7, nome: "Matilde S."}, {n: 9, nome: "Nathy"}, {n: 10, nome: "Maria S."},
-        {n: 11, nome: "Bia"}, {n: 12, nome: "Carolina R."}, {n: 13, nome: "Clara"},
-        {n: 15, nome: "Zita"}, {n: 17, nome: "Malu"}, {n: 19, nome: "Nadii"},
-        {n: 20, nome: "Kia"}, {n: 22, nome: "Carolina V."}, {n: 26, nome: "Luana"},
-        {n: 55, nome: "Loureiro"}, {n: 99, nome: "Carol"}
+        {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
+        {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
+        {n: 11, nome: "Beatriz Brito"}, {n: 12, nome: "Carolina Rodrigues"}, {n: 13, nome: "Clara Ferreira"},
+        {n: 15, nome: "Zita Macedo"}, {n: 17, nome: "Maria Luisa Baptista"}, {n: 19, nome: "Nadia Silva"},
+        {n: 20, nome: "Francisca Miranda"}, {n: 22, nome: "Carolina Verissimo"}, {n: 26, nome: "Luana Santana"},
+        {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
     ];
 
     let state = { conv: [], sets: {} };
@@ -182,50 +179,40 @@
         sync();
     };
 
-    function validarRegra(setNum) {
-        if(setNum === 1) return {ok: true, msg: "Aguardando definição do 1º Set."};
+    window.gerarMensagem = () => {
+        if(state.conv.length === 0) return alert("Nenhuma atleta convocada!");
         
-        let atual = [];
-        for(let p of [1,2,3,4,5,6]) if(state.sets[`s${setNum}p${p}`]) atual.push(parseInt(state.sets[`s${setNum}p${p}`]));
+        let lista = atletas
+            .filter(a => state.conv.includes(a.n))
+            .map(a => `➡ ${a.nome}`)
+            .join('\n');
+
+        let texto = `*Troféu AVB/AVVC Iniciadas B Fem* \n\n🏟  *ES ALCAIDES FARIA*\n\n📆  *25/04/2026 (Sábado)*\n⏰ *12h*\n(Concentração 11h no local)\n\n*CONVOCADAS:*\n\n${lista}`;
         
-        let anterior = [];
-        for(let p of [1,2,3,4,5,6]) if(state.sets[`s${setNum-1}p${p}`]) anterior.push(parseInt(state.sets[`s${setNum-1}p${p}`]));
-
-        if(atual.length < 6) return {ok: true, msg: "Preenche as 6 posições."};
-
-        let novos = atual.filter(p => !anterior.includes(p));
-        if(novos.length < 3) return {ok: false, msg: `✗ Alínea d): Precisas de 3 novos em relação ao Set ${setNum-1}.`};
-
-        if(setNum >= 3) {
-            let antAnt = [];
-            for(let p of [1,2,3,4,5,6]) if(state.sets[`s${setNum-2}p${p}`]) antAnt.push(parseInt(state.sets[`s${setNum-2}p${p}`]));
-            let infratores = atual.filter(p => anterior.includes(p) && antAnt.includes(p));
-            if(infratores.length > 0) return {ok: false, msg: `✗ Alínea d): # ${infratores.join(', ')} jogaram os 2 anteriores.`};
-        }
-
-        return {ok: true, msg: "✓ Formação válida!"};
-    }
+        // Copiar para a área de transferência
+        navigator.clipboard.writeText(texto).then(() => {
+            alert("Mensagem copiada! Agora é só colar no WhatsApp das meninas.");
+        });
+    };
 
     function render() {
         document.getElementById('athlete-list').innerHTML = atletas.map(a => `
             <div class="athlete-card">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="athlete-num">${a.n}</div>
-                    <span style="font-size:0.8rem; font-weight:600;">${a.nome}</span>
+                    <span style="font-size:0.75rem; font-weight:600;">${a.nome}</span>
                 </div>
                 <input type="checkbox" class="switch" ${state.conv.includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
             </div>
         `).join('');
 
-        document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
-            const res = validarRegra(s);
-            return `
+        document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => `
             <div class="set-mini-court">
-                <div class="set-title">SET ${s} <span style="color:${res.ok?'var(--success)':'var(--accent)'}">${res.ok?'✓':'✗'}</span></div>
+                <div style="font-size:0.8rem; font-weight:800; color:var(--primary); margin-bottom:10px;">SET ${s}</div>
                 <div class="court-grid">
                     ${[4,3,2,5,6,1].map(p => `
                         <div class="pos-box">
-                            <label>P${p}</label>
+                            <label style="font-size:0.5rem; color:#94a3b8; display:block;">P${p}</label>
                             <select onchange="updatePos('s${s}p${p}', this.value)">
                                 <option value="">-</option>
                                 ${state.conv.sort((a,b)=>a-b).map(n => `<option value="${n}" ${state.sets['s'+s+'p'+p] == n ? 'selected' : ''}>${n}</option>`).join('')}
@@ -233,9 +220,8 @@
                         </div>
                     `).join('')}
                 </div>
-                <div class="msg-regra" style="color:${res.ok?'#94a3b8':'var(--accent)'}">${res.msg}</div>
-            </div>`;
-        }).join('');
+            </div>
+        `).join('');
     }
 
     window.showTab = (tab) => {
