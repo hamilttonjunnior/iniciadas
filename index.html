@@ -173,36 +173,40 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // RESTAURADAS TODAS AS ATLETAS
+    const ATLETAS_PADRAO = [
+        {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
+        {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
+        {n: 11, nome: "Beatriz Brito"}, {n: 12, nome: "Carolina Rodrigues"}, {n: 13, nome: "Clara Ferreira"},
+        {n: 15, nome: "Zita Macedo"}, {n: 17, nome: "Maria Luisa Baptista"}, {n: 19, nome: "Nadia Silva"},
+        {n: 20, nome: "Francisca Miranda"}, {n: 22, nome: "Carolina Verissimo"}, {n: 26, nome: "Luana Santana"},
+        {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
+    ];
+
     let state = { 
         conv: [], 
         sets: {}, 
-        atletas: [
-            {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
-            {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
-            {n: 11, nome: "Beatriz Brito"}, {n: 12, nome: "Carolina Rodrigues"}, {n: 13, nome: "Clara Ferreira"},
-            {n: 15, nome: "Zita Macedo"}, {n: 17, nome: "Maria Luisa Baptista"}, {n: 19, nome: "Nadia Silva"},
-            {n: 20, nome: "Francisca Miranda"}, {n: 22, nome: "Carolina Verissimo"}, {n: 26, nome: "Luana Santana"},
-            {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
-        ],
+        atletas: ATLETAS_PADRAO,
         advName: "ADV",
         logs: []
     };
 
-    let liveState = { 
-        currentSet: "1",
-        home: 0, 
-        away: 0, 
-        serving: 'home', 
-        currentLineup: [] 
-    };
+    let liveState = { currentSet: "1", home: 0, away: 0, serving: 'home', currentLineup: [] };
 
     onSnapshot(doc(db, "gestao", "atual"), (snap) => {
         if(snap.exists()) {
-            state = snap.data();
+            const data = snap.data();
+            state = data;
+            // TRAVA DE SEGURANÇA: Se a lista vier vazia do banco, restaura as 17 originais
+            if(!state.atletas || state.atletas.length === 0) {
+                state.atletas = ATLETAS_PADRAO;
+                sync();
+            }
             document.getElementById('sync-status').style.display = 'block';
             document.getElementById('adv-name').value = state.advName || "";
             document.getElementById('adv-label').innerText = state.advName || "ADV";
+        } else {
+            // Se o banco estiver vazio (primeira vez), salva as originais
+            sync();
         }
         render();
         initLiveSet();
