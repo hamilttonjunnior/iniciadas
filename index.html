@@ -14,7 +14,6 @@
 
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--white); margin: 0; padding-bottom: 110px; overflow-x: hidden; }
         
-        /* Login */
         #login-screen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 3000; }
         .login-box { background: var(--card); backdrop-filter: blur(20px); padding: 35px; border-radius: 28px; border: 1px solid var(--border); text-align: center; width: 85%; max-width: 320px; }
         .login-box input { width: 100%; padding: 14px; margin: 20px 0; border-radius: 12px; border: 1px solid var(--border); background: #1e293b; color: white; text-align: center; box-sizing: border-box; font-size: 16px; }
@@ -22,16 +21,14 @@
         header { padding: 15px; text-align: center; }
         header h1 { margin: 0; font-size: 1rem; font-weight: 800; color: var(--primary); }
 
-        /* Barra de Navegação */
         .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 450px; background: rgba(30, 41, 59, 0.95); display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.7rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
+        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
         .nav-item.active { background: var(--primary); color: var(--bg); }
 
         .section { display: none; padding: 10px; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Aba Convocação */
         .game-info-card { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 18px; margin-bottom: 20px; max-width: 500px; margin: 0 auto 20px; }
         .game-info-card input, .game-info-card select { width: 100%; padding: 10px; margin: 5px 0 12px; border-radius: 8px; border: 1px solid var(--border); background: #1e293b; color: white; font-size: 0.85rem; box-sizing: border-box; }
         .game-info-card label { font-size: 0.65rem; font-weight: 700; color: var(--primary); text-transform: uppercase; }
@@ -41,8 +38,8 @@
         .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
         .btn-whatsapp { background: var(--success); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 5px; }
         .btn-remove { background: none; border: none; color: var(--accent); cursor: pointer; font-weight: bold; padding: 0 5px; }
+        .role-select { background: #1e293b; color: var(--primary); border: none; font-size: 0.6rem; font-weight: bold; border-radius: 4px; padding: 2px; }
 
-        /* Aba Quadras */
         #sets-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 10px; }
         .set-mini-court { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px; border-radius: 18px; }
         .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
@@ -52,57 +49,46 @@
         option { background-color: #1e293b; color: white; }
         .msg-regra { font-size: 0.65rem; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; min-height: 35px; line-height: 1.3; }
 
-        /* Aba Live Jogo */
         .scoreboard { display: flex; justify-content: space-around; align-items: center; background: var(--card); padding: 15px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); max-width: 400px; margin: 0 auto 20px; }
         .score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; cursor: pointer; }
         .score-btn { background: var(--primary); color: var(--bg); border: none; padding: 12px; border-radius: 10px; font-weight: 800; width: 100%; margin-top: 10px; }
         .score-btn.adv { background: var(--accent); color: white; }
 
-        .live-court { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background: #1e3a8a; padding: 25px; border-radius: 15px; border: 2px solid white; max-width: 320px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .live-container { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .live-court { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background: #1e3a8a; padding: 25px; border-radius: 15px; border: 2px solid white; width: 100%; max-width: 320px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
         .live-pos { background: rgba(255,255,255,0.15); aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; border: 1px solid rgba(255,255,255,0.4); position: relative; }
         .pos-label { font-size: 0.55rem; color: #cbd5e1; position: absolute; top: 6px; font-weight: 700; }
-        .server-ball { width: 14px; height: 14px; background: #fbbf24; border-radius: 50%; position: absolute; bottom: -6px; animation: bounce 0.6s infinite alternate; box-shadow: 0 0 15px #fbbf24; z-index: 10; }
-        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+        .server-ball { width: 14px; height: 14px; background: #fbbf24; border-radius: 50%; position: absolute; bottom: -6px; }
+
+        .tactic-hint { background: #0f172a; border: 1px solid var(--primary); padding: 15px; border-radius: 15px; width: 100%; max-width: 320px; text-align: center; }
+        .tactic-title { color: var(--primary); font-weight: 800; font-size: 0.75rem; margin-bottom: 10px; text-transform: uppercase; }
+        .tactic-desc { font-size: 0.7rem; color: #94a3b8; line-height: 1.4; }
 
         .switch { width: 36px; height: 20px; background: #334155; border-radius: 20px; position: relative; appearance: none; cursor: pointer; outline: none; }
         .switch:checked { background: var(--success); }
         .switch::before { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
         .switch:checked::before { left: 19px; }
 
-        /* Aba Logs */
         .log-item { background: var(--card); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--primary); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="login-box">
-        <h1 style="color: var(--primary); margin:0;">VOLEI PRO</h1>
-        <input type="password" id="passInput" placeholder="Senha">
-        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800;">ENTRAR</button>
-    </div>
-</div>
+<div id="login-screen"><div class="login-box"><h1 style="color: var(--primary); margin:0;">VOLEI PRO</h1><input type="password" id="passInput" placeholder="Senha"><button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800;">ENTRAR</button></div></div>
 
-<header>
-    <h1>INICIADAS B - GESTÃO</h1>
-    <div id="sync-status" style="display:none; font-size: 0.5rem; color: var(--success); text-align: center;">● LIVE SYNC</div>
-</header>
+<header><h1>INICIADAS B - GESTÃO</h1><div id="sync-status" style="display:none; font-size: 0.5rem; color: var(--success); text-align: center;">● LIVE SYNC</div></header>
 
 <div class="nav-bar">
     <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">CONVOCAR</div>
     <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA</div>
-    <div class="nav-item" id="btn-live" onclick="showTab('live')">LIVE JOGO</div>
+    <div class="nav-item" id="btn-live" onclick="showTab('live')">LIVE</div>
     <div class="nav-item" id="btn-logs" onclick="showTab('logs')">LOGS</div>
 </div>
 
 <section id="convocacao" class="section active">
     <div class="game-info-card">
-        <label>Nome do Adversário</label>
-        <input type="text" id="adv-name" placeholder="Ex: SC Braga" onchange="sync()">
-
-        <label>Prova / Torneio</label>
-        <input type="text" id="game-name" value="Troféu AVB/AVVC Iniciadas B Fem" onchange="sync()">
-        
+        <label>Nome do Adversário</label><input type="text" id="adv-name" placeholder="Ex: SC Braga" onchange="sync()">
+        <label>Prova / Torneio</label><input type="text" id="game-name" value="Troféu AVB/AVVC Iniciadas B Fem" onchange="sync()">
         <label>Local / Pavilhão</label>
         <select id="pavilion-select" onchange="toggleOtherPavilion()">
             <option value="ES ALCAIDES FARIA">ES ALCAIDES FARIA</option>
@@ -110,7 +96,6 @@
             <option value="outro">OUTRO (Digitar abaixo)</option>
         </select>
         <input type="text" id="other-pavilion" placeholder="Nome do Pavilhão" style="display:none;" onchange="sync()">
-
         <div style="display:flex; gap:10px;">
             <div style="flex:2;"><label>Data</label><input type="text" id="game-date" placeholder="Ex: 25/04 (Sáb)" onchange="sync()"></div>
             <div style="flex:1;"><label>Hora</label><input type="text" id="game-time" placeholder="12:00" onchange="sync()"></div>
@@ -130,9 +115,7 @@
     </div>
 </section>
 
-<section id="sets" class="section">
-    <div id="sets-container"></div>
-</section>
+<section id="sets" class="section"><div id="sets-container"></div></section>
 
 <section id="live" class="section">
     <div style="text-align:center; margin-bottom: 15px;">
@@ -142,20 +125,19 @@
     </div>
 
     <div class="scoreboard">
-        <div style="text-align:center; flex:1;">
-            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">FCA</span>
-            <span class="score-num" id="score-home" onclick="removePoint('home')">0</span>
-            <button class="score-btn" onclick="addPoint('home')">+ PONTO</button>
-        </div>
+        <div style="text-align:center; flex:1;"><span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">FCA</span><span class="score-num" id="score-home" onclick="removePoint('home')">0</span><button class="score-btn" onclick="addPoint('home')">+ PONTO</button></div>
         <div style="font-weight:900; color:#475569; margin: 0 10px;">VS</div>
-        <div style="text-align:center; flex:1;">
-            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;" id="adv-label">ADV</span>
-            <span class="score-num" id="score-away" onclick="removePoint('away')">0</span>
-            <button class="score-btn adv" onclick="addPoint('away')">+ PONTO</button>
-        </div>
+        <div style="text-align:center; flex:1;"><span style="font-size:0.6rem; font-weight:800; color:#94a3b8;" id="adv-label">ADV</span><span class="score-num" id="score-away" onclick="removePoint('away')">0</span><button class="score-btn adv" onclick="addPoint('away')">+ PONTO</button></div>
     </div>
 
-    <div class="live-court" id="live-court-render"></div>
+    <div class="live-container">
+        <div class="live-court" id="live-court-render"></div>
+        
+        <div class="tactic-hint" id="tactic-panel">
+            <div class="tactic-title" id="tactic-pos-title">ESQUEMA 5x1</div>
+            <div class="tactic-desc" id="tactic-pos-desc">Selecione as funções das atletas na aba Convocação para ver as instruções.</div>
+        </div>
+    </div>
     
     <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
         <button onclick="undoRotate()" style="background:none; border: 1px solid #64748b; color:#64748b; padding: 8px 15px; border-radius: 10px; font-size: 0.65rem; font-weight: 700;">↺ VOLTAR ROTAÇÃO</button>
@@ -163,38 +145,19 @@
     </div>
 </section>
 
-<section id="logs" class="section">
-    <div id="logs-container" style="max-width: 500px; margin: auto;"></div>
-    <button onclick="clearLogs()" style="width:100%; max-width: 500px; display: block; margin: 20px auto; background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold;">LIMPAR HISTÓRICO</button>
-</section>
+<section id="logs" class="section"><div id="logs-container" style="max-width: 500px; margin: auto;"></div><button onclick="clearLogs()" style="width:100%; max-width: 500px; display: block; margin: 20px auto; background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold;">LIMPAR HISTÓRICO</button></section>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyD3eeZF56QX--Mh8IuR1d78te3hC7c10VQ",
-        authDomain: "iniciadas-87351.firebaseapp.com",
-        projectId: "iniciadas-87351",
-        storageBucket: "iniciadas-87351.firebasestorage.app",
-        messagingSenderId: "1029800013091",
-        appId: "1:1029800013091:web:6a1020b1099c83f37cf096"
-    };
-
+    const firebaseConfig = { apiKey: "AIzaSyD3eeZF56QX--Mh8IuR1d78te3hC7c10VQ", authDomain: "iniciadas-87351.firebaseapp.com", projectId: "iniciadas-87351", storageBucket: "iniciadas-87351.firebasestorage.app", messagingSenderId: "1029800013091", appId: "1:1029800013091:web:6a1020b1099c83f37cf096" };
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Estado inicial com atletas padrão
     let state = { 
-        conv: [], 
-        sets: {}, 
-        advName: "ADV", 
-        logs: [], 
-        gameName: "Troféu AVB/AVVC Iniciadas B Fem", 
-        gameDate: "", 
-        gameTime: "", 
-        pavilion: "ES ALCAIDES FARIA", 
-        otherPavilion: "",
+        conv: [], sets: {}, advName: "ADV", logs: [], gameName: "Troféu AVB/AVVC Iniciadas B Fem", gameDate: "", gameTime: "", pavilion: "ES ALCAIDES FARIA", otherPavilion: "",
+        roles: {}, // Guarda a função de cada atleta
         atletas: [
             {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
             {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
@@ -237,20 +200,12 @@
     window.addAthlete = () => {
         const n = parseInt(document.getElementById('new-ath-num').value);
         const nome = document.getElementById('new-ath-name').value;
-        if(n && nome) { 
-            state.atletas.push({n, nome}); 
-            document.getElementById('new-ath-num').value = ''; 
-            document.getElementById('new-ath-name').value = ''; 
-            sync(); 
-        }
+        if(n && nome) { state.atletas.push({n, nome}); document.getElementById('new-ath-num').value = ''; document.getElementById('new-ath-name').value = ''; sync(); }
     };
 
-    window.removeAthlete = (n) => { 
-        if(confirm(`Remover atleta nº ${n}?`)) { 
-            state.atletas = state.atletas.filter(a => a.n !== n); 
-            sync(); 
-        } 
-    };
+    window.removeAthlete = (n) => { if(confirm(`Remover atleta nº ${n}?`)) { state.atletas = state.atletas.filter(a => a.n !== n); sync(); } };
+
+    window.updateRole = (n, role) => { state.roles[n] = role; sync(); };
 
     window.toggleOtherPavilion = (doSync = true) => {
         const sel = document.getElementById('pavilion-select').value;
@@ -261,19 +216,13 @@
     window.gerarMensagem = () => {
         const pav = state.pavilion === 'outro' ? state.otherPavilion : state.pavilion;
         let lista = state.atletas.filter(a => state.conv.includes(a.n)).map(a => `➡ ${a.nome}`).join('\n');
-        let texto = `*${state.gameName}* \n\n🏟  *${pav}*\n\n📆  *${state.gameDate}*\n⏰ *${state.gameTime}*\n(Concentração 1h antes no local)\n\n*CONVOCADAS:*\n\n${lista}`;
-        navigator.clipboard.writeText(texto).then(() => alert("Copiado para o WhatsApp!"));
+        let texto = `*${state.gameName}* \n\n🏟 *${pav}*\n📆 *${state.gameDate}*\n⏰ *${state.gameTime}*\n\n*CONVOCADAS:*\n${lista}`;
+        navigator.clipboard.writeText(texto).then(() => alert("Copiado!"));
     };
 
-    window.toggle = (n) => {
-        state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n];
-        sync(); render();
-    };
+    window.toggle = (n) => { state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n]; sync(); render(); };
 
-    window.updatePos = (key, val) => {
-        state.sets[key] = val;
-        sync(); render();
-    };
+    window.updatePos = (key, val) => { state.sets[key] = val; sync(); render(); };
 
     function validarSet(s) {
         if (s === 1) return { ok: true, msg: "Define o 1º Set." };
@@ -290,7 +239,7 @@
         return { ok: true, msg: "✓ Formação Válida." };
     }
 
-    // --- LIVE ---
+    // --- LIVE & TÁTICA ---
     window.initLiveSet = () => {
         const s = liveState.currentSet;
         liveState.currentLineup = [
@@ -301,23 +250,13 @@
     };
 
     window.changeSet = (s) => {
-        if (liveState.home > 0 || liveState.away > 0) {
-            state.logs.push(`SET ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} (${state.advName})`);
-        }
-        liveState.currentSet = s;
-        liveState.home = 0;
-        liveState.away = 0;
-        sync();
-        initLiveSet();
+        if (liveState.home > 0 || liveState.away > 0) state.logs.push(`SET ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} (${state.advName})`);
+        liveState.currentSet = s; liveState.home = 0; liveState.away = 0; sync(); initLiveSet();
     };
 
     window.addPoint = (team) => {
-        if(team === 'home') {
-            if(liveState.serving === 'away') rotate();
-            liveState.home++; liveState.serving = 'home';
-        } else {
-            liveState.away++; liveState.serving = 'away';
-        }
+        if(team === 'home') { if(liveState.serving === 'away') rotate(); liveState.home++; liveState.serving = 'home'; }
+        else { liveState.away++; liveState.serving = 'away'; }
         renderLive();
     };
 
@@ -329,31 +268,18 @@
 
     function rotate() {
         const old = [...liveState.currentLineup];
-        liveState.currentLineup[5] = old[2]; // P2 -> P1
-        liveState.currentLineup[4] = old[5]; // P1 -> P6
-        liveState.currentLineup[3] = old[4]; // P6 -> P5
-        liveState.currentLineup[0] = old[3]; // P5 -> P4
-        liveState.currentLineup[1] = old[0]; // P4 -> P3
-        liveState.currentLineup[2] = old[1]; // P3 -> P2
+        liveState.currentLineup[5] = old[2]; liveState.currentLineup[4] = old[5]; liveState.currentLineup[3] = old[4];
+        liveState.currentLineup[0] = old[3]; liveState.currentLineup[1] = old[0]; liveState.currentLineup[2] = old[1];
     }
 
     window.undoRotate = () => {
         const old = [...liveState.currentLineup];
-        liveState.currentLineup[2] = old[5]; // P1 -> P2
-        liveState.currentLineup[5] = old[4]; // P6 -> P1
-        liveState.currentLineup[4] = old[3]; // P5 -> P6
-        liveState.currentLineup[3] = old[0]; // P4 -> P5
-        liveState.currentLineup[0] = old[1]; // P3 -> P4
-        liveState.currentLineup[1] = old[2]; // P2 -> P3
+        liveState.currentLineup[2] = old[5]; liveState.currentLineup[5] = old[4]; liveState.currentLineup[4] = old[3];
+        liveState.currentLineup[3] = old[0]; liveState.currentLineup[0] = old[1]; liveState.currentLineup[1] = old[2];
         renderLive();
     };
 
-    window.resetLive = () => {
-        if(confirm("Reiniciar placar deste set?")) {
-            liveState.home = 0; liveState.away = 0; liveState.serving = 'home';
-            initLiveSet();
-        }
-    };
+    window.resetLive = () => { if(confirm("Reiniciar placar?")) { liveState.home = 0; liveState.away = 0; liveState.serving = 'home'; initLiveSet(); } };
 
     function renderLive() {
         document.getElementById('score-home').innerText = liveState.home;
@@ -361,76 +287,72 @@
         const court = document.getElementById('live-court-render');
         const labels = [4, 3, 2, 5, 6, 1];
         court.innerHTML = liveState.currentLineup.map((num, i) => `
-            <div class="live-pos">
-                <span class="pos-label">P${labels[i]}</span>${num}
-                ${(liveState.serving === 'home' && labels[i] === 1) ? '<div class="server-ball"></div>' : ''}
-            </div>
+            <div class="live-pos"><span class="pos-label">P${labels[i]}</span>${num}${(liveState.serving === 'home' && labels[i] === 1) ? '<div class="server-ball"></div>' : ''}</div>
         `).join('');
+        updateTacticDisplay();
+    }
+
+    function updateTacticDisplay() {
+        const labels = [4, 3, 2, 5, 6, 1];
+        let setterPos = null;
+        liveState.currentLineup.forEach((num, i) => { if(state.roles[num] === 'LEV') setterPos = labels[i]; });
+
+        const tactics = {
+            1: ["LEVANTADOR EM P1", "Infiltração pela zona 1. Ponta e Central preparados na rede para ataque."],
+            6: ["LEVANTADOR EM P6", "Infiltração pelo centro. Levantador corre entre P2 e P3."],
+            5: ["LEVANTADOR EM P5", "Infiltração pela esquerda. Maior atenção à cobertura do passe."],
+            4: ["LEVANTADOR EM P4", "Levantador na rede. Troca rápida para a posição 2 após o saque."],
+            3: ["LEVANTADOR EM P3", "Levantador na rede central. Troca para P2 para distribuir da saída."],
+            2: ["LEVANTADOR EM P2", "Levantador na saída de rede. Posição base de distribuição."]
+        };
+
+        if(setterPos && tactics[setterPos]) {
+            document.getElementById('tactic-pos-title').innerText = tactics[setterPos][0];
+            document.getElementById('tactic-pos-desc').innerText = tactics[setterPos][1];
+        }
     }
 
     function render() {
-        // Lista de Convocação
         document.getElementById('athlete-list').innerHTML = state.atletas.sort((a,b)=>a.n-b.n).map(a => `
             <div class="athlete-card">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="athlete-num">${a.n}</div>
-                    <span style="font-size:0.75rem; font-weight:600;">${a.nome}</span>
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <div style="display:flex; align-items:center; gap:8px;"><div class="athlete-num">${a.n}</div><span style="font-size:0.75rem;">${a.nome}</span></div>
+                    <select class="role-select" onchange="updateRole(${a.n}, this.value)">
+                        <option value="">-</option>
+                        <option value="LEV" ${state.roles[a.n]=='LEV'?'selected':''}>LEV</option>
+                        <option value="OP" ${state.roles[a.n]=='OP'?'selected':''}>OP</option>
+                        <option value="C1" ${state.roles[a.n]=='C1'?'selected':''}>C1</option>
+                        <option value="C2" ${state.roles[a.n]=='C2'?'selected':''}>C2</option>
+                        <option value="P1" ${state.roles[a.n]=='P1'?'selected':''}>P1</option>
+                        <option value="P2" ${state.roles[a.n]=='P2'?'selected':''}>P2</option>
+                    </select>
                 </div>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <input type="checkbox" class="switch" ${(state.conv || []).includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
-                    <button class="btn-remove" onclick="removeAthlete(${a.n})">×</button>
-                </div>
-            </div>
-        `).join('');
+                <div style="display:flex; align-items:center;"><input type="checkbox" class="switch" ${(state.conv || []).includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})"><button class="btn-remove" onclick="removeAthlete(${a.n})">×</button></div>
+            </div>`).join('');
 
-        // Mini Quadras de Estratégia
         document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
             const res = validarSet(s);
             const convocadas = state.atletas.filter(a => state.conv.includes(a.n)).sort((a,b)=>a.n-b.n);
-            return `
-            <div class="set-mini-court">
-                <div style="font-size:0.75rem; font-weight:800; color:var(--primary); margin-bottom:8px; display:flex; justify-content:space-between;">
-                    SET ${s} <span style="color:${res.ok?'var(--success)':'var(--accent)'}">${res.ok?'✓':'✗'}</span>
-                </div>
-                <div class="court-grid">
-                    ${[4,3,2,5,6,1].map(p => {
-                        const id = `s${s}p${p}`;
-                        const cur = state.sets[id];
-                        return `
-                        <div class="pos-box ${cur ? 'occupied' : ''}">
-                            <label style="font-size:0.45rem; color:#94a3b8;">P${p}</label>
-                            <select onchange="updatePos('${id}', this.value)">
-                                <option value="">-</option>
-                                ${convocadas.map(a => `<option value="${a.n}" ${cur == a.n ? 'selected' : ''}>${a.n}</option>`).join('')}
-                            </select>
-                        </div>`;
-                    }).join('')}
-                </div>
-                <div class="msg-regra" style="color:${res.ok?'#94a3b8':'var(--accent)'}">${res.msg}</div>
-            </div>`;
+            return `<div class="set-mini-court"><div style="font-size:0.75rem; font-weight:800; color:var(--primary); margin-bottom:8px; display:flex; justify-content:space-between;">SET ${s} <span style="color:${res.ok?'var(--success)':'var(--accent)'}">${res.ok?'✓':'✗'}</span></div>
+                <div class="court-grid">${[4,3,2,5,6,1].map(p => {
+                    const id = `s${s}p${p}`; const val = state.sets[id]||"";
+                    return `<div class="pos-box ${val?'occupied':''}"><label style="font-size:0.45rem; color:#94a3b8;">P${p}</label><select onchange="updatePos('${id}', this.value)"><option value="">-</option>${convocadas.map(a => `<option value="${a.n}" ${val==a.n?'selected':''}>${a.n}</option>`).join('')}</select></div>`
+                }).join('')}</div><div class="msg-regra" style="color:${res.ok?'#94a3b8':'var(--accent)'}">${res.msg}</div></div>`;
         }).join('');
 
-        // Histórico de Logs
-        document.getElementById('logs-container').innerHTML = (state.logs || []).map(l => `
-            <div class="log-item">${l}</div>
-        `).join('') || "<p style='text-align:center; color:#64748b; font-size:0.8rem;'>Sem registos de sets.</p>";
+        document.getElementById('logs-container').innerHTML = (state.logs || []).map(l => `<div class="log-item">${l}</div>`).join('') || "<p style='text-align:center;'>Sem registos.</p>";
     }
 
     window.showTab = (tab) => {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         document.getElementById(tab).classList.add('active');
         document.getElementById('btn-' + tab).classList.add('active');
         if(tab === 'live') initLiveSet();
     };
 
-    window.checkPass = () => {
-        if(document.getElementById('passInput').value === 'volei2026') {
-            document.getElementById('login-screen').style.display = 'none'; render();
-        }
-    };
-
-    window.clearLogs = () => { if(confirm("Limpar todo o histórico de jogo?")) { state.logs = []; sync(); } };
+    window.checkPass = () => { if(document.getElementById('passInput').value === 'volei2026') { document.getElementById('login-screen').style.display = 'none'; render(); } };
+    window.clearLogs = () => { if(confirm("Limpar histórico?")) { state.logs = []; sync(); } };
 </script>
 </body>
 </html>
