@@ -24,7 +24,7 @@
 
         /* Barra de Navegação */
         .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 450px; background: rgba(30, 41, 59, 0.95); display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
+        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.7rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
         .nav-item.active { background: var(--primary); color: var(--bg); }
 
         .section { display: none; padding: 10px; animation: fadeIn 0.3s ease; }
@@ -40,6 +40,7 @@
         .athlete-card { background: var(--card); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; }
         .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
         .btn-whatsapp { background: var(--success); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 5px; }
+        .btn-remove { background: none; border: none; color: var(--accent); cursor: pointer; font-weight: bold; padding: 0 5px; }
 
         /* Aba Quadras */
         #sets-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 10px; }
@@ -49,11 +50,11 @@
         .pos-box.occupied { border: 1px solid var(--primary); }
         select { background: transparent; color: var(--white); border: none; font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none; }
         option { background-color: #1e293b; color: white; }
+        .msg-regra { font-size: 0.65rem; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; min-height: 35px; line-height: 1.3; }
 
         /* Aba Live Jogo */
         .scoreboard { display: flex; justify-content: space-around; align-items: center; background: var(--card); padding: 15px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); max-width: 400px; margin: 0 auto 20px; }
         .score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; cursor: pointer; }
-        .score-num:active { transform: scale(0.95); opacity: 0.8; }
         .score-btn { background: var(--primary); color: var(--bg); border: none; padding: 12px; border-radius: 10px; font-weight: 800; width: 100%; margin-top: 10px; }
         .score-btn.adv { background: var(--accent); color: white; }
 
@@ -67,8 +68,8 @@
         .switch:checked { background: var(--success); }
         .switch::before { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
         .switch:checked::before { left: 19px; }
-        .msg-regra { font-size: 0.65rem; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; min-height: 35px; line-height: 1.3; }
 
+        /* Aba Logs */
         .log-item { background: var(--card); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--primary); font-size: 0.85rem; }
     </style>
 </head>
@@ -90,7 +91,7 @@
 <div class="nav-bar">
     <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">CONVOCAR</div>
     <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA</div>
-    <div class="nav-item" id="btn-live" onclick="showTab('live')">LIVE</div>
+    <div class="nav-item" id="btn-live" onclick="showTab('live')">LIVE JOGO</div>
     <div class="nav-item" id="btn-logs" onclick="showTab('logs')">LOGS</div>
 </div>
 
@@ -116,7 +117,17 @@
         </div>
         <button class="btn-whatsapp" onclick="gerarMensagem()"><span>💬</span> Copiar WhatsApp</button>
     </div>
+    
     <div id="athlete-list"></div>
+
+    <div class="game-info-card" style="margin-top: 20px; border-style: dashed;">
+        <label>Adicionar Atleta ao Plantel</label>
+        <div style="display:flex; gap:5px; margin-top:5px;">
+            <input type="number" id="new-ath-num" placeholder="Nº" style="flex:1; margin:0;">
+            <input type="text" id="new-ath-name" placeholder="Nome" style="flex:3; margin:0;">
+            <button onclick="addAthlete()" style="background:var(--primary); border:none; border-radius:8px; padding:0 15px; color:var(--bg); font-weight:800;">+</button>
+        </div>
+    </div>
 </section>
 
 <section id="sets" class="section">
@@ -146,8 +157,9 @@
 
     <div class="live-court" id="live-court-render"></div>
     
-    <div style="text-align: center; margin-top: 20px;">
-        <button onclick="resetLive()" style="background:none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 20px; border-radius: 10px; font-size: 0.7rem; font-weight: 700;">REINICIAR PLACAR</button>
+    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+        <button onclick="undoRotate()" style="background:none; border: 1px solid #64748b; color:#64748b; padding: 8px 15px; border-radius: 10px; font-size: 0.65rem; font-weight: 700;">↺ VOLTAR ROTAÇÃO</button>
+        <button onclick="resetLive()" style="background:none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 15px; border-radius: 10px; font-size: 0.65rem; font-weight: 700;">REINICIAR PLACAR</button>
     </div>
 </section>
 
@@ -172,22 +184,32 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const atletas = [
-        {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
-        {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
-        {n: 11, nome: "Beatriz Brito"}, {n: 12, nome: "Carolina Rodrigues"}, {n: 13, nome: "Clara Ferreira"},
-        {n: 15, nome: "Zita Macedo"}, {n: 17, nome: "Maria Luisa Baptista"}, {n: 19, nome: "Nadia Silva"},
-        {n: 20, nome: "Francisca Miranda"}, {n: 22, nome: "Carolina Verissimo"}, {n: 26, nome: "Luana Santana"},
-        {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
-    ];
+    // Estado inicial com atletas padrão
+    let state = { 
+        conv: [], 
+        sets: {}, 
+        advName: "ADV", 
+        logs: [], 
+        gameName: "Troféu AVB/AVVC Iniciadas B Fem", 
+        gameDate: "", 
+        gameTime: "", 
+        pavilion: "ES ALCAIDES FARIA", 
+        otherPavilion: "",
+        atletas: [
+            {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
+            {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
+            {n: 11, nome: "Beatriz Brito"}, {n: 12, nome: "Carolina Rodrigues"}, {n: 13, nome: "Clara Ferreira"},
+            {n: 15, nome: "Zita Macedo"}, {n: 17, nome: "Maria Luisa Baptista"}, {n: 19, nome: "Nadia Silva"},
+            {n: 20, nome: "Francisca Miranda"}, {n: 22, nome: "Carolina Verissimo"}, {n: 26, nome: "Luana Santana"},
+            {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
+        ]
+    };
 
-    let state = { conv: [], sets: {}, advName: "ADV", logs: [], gameName: "Troféu AVB/AVVC Iniciadas B Fem", gameDate: "", gameTime: "", pavilion: "ES ALCAIDES FARIA", otherPavilion: "" };
-    let liveState = { currentSet: "1", home: 0, away: 0, serving: 'home', currentLineup: [] };
+    let liveState = { home: 0, away: 0, serving: 'home', currentLineup: [], currentSet: "1" };
 
     onSnapshot(doc(db, "gestao", "atual"), (snap) => {
         if(snap.exists()) {
-            const data = snap.data();
-            state = { ...state, ...data };
+            state = { ...state, ...snap.data() };
             document.getElementById('sync-status').style.display = 'block';
             document.getElementById('adv-name').value = state.advName || "ADV";
             document.getElementById('adv-label').innerText = state.advName || "ADV";
@@ -199,7 +221,7 @@
             toggleOtherPavilion(false);
         }
         render();
-        initLiveSet();
+        if(liveState.currentLineup.length === 0) initLiveSet();
     });
 
     window.sync = async () => { 
@@ -212,6 +234,24 @@
         await setDoc(doc(db, "gestao", "atual"), state); 
     };
 
+    window.addAthlete = () => {
+        const n = parseInt(document.getElementById('new-ath-num').value);
+        const nome = document.getElementById('new-ath-name').value;
+        if(n && nome) { 
+            state.atletas.push({n, nome}); 
+            document.getElementById('new-ath-num').value = ''; 
+            document.getElementById('new-ath-name').value = ''; 
+            sync(); 
+        }
+    };
+
+    window.removeAthlete = (n) => { 
+        if(confirm(`Remover atleta nº ${n}?`)) { 
+            state.atletas = state.atletas.filter(a => a.n !== n); 
+            sync(); 
+        } 
+    };
+
     window.toggleOtherPavilion = (doSync = true) => {
         const sel = document.getElementById('pavilion-select').value;
         document.getElementById('other-pavilion').style.display = sel === 'outro' ? 'block' : 'none';
@@ -219,13 +259,9 @@
     };
 
     window.gerarMensagem = () => {
-        const prova = state.gameName;
-        const selPav = state.pavilion;
-        const pav = selPav === 'outro' ? state.otherPavilion : selPav;
-        const data = state.gameDate;
-        const hora = state.gameTime;
-        let lista = atletas.filter(a => state.conv.includes(a.n)).map(a => `➡ ${a.nome}`).join('\n');
-        let texto = `*${prova}* \n\n🏟  *${pav}*\n\n📆  *${data}*\n⏰ *${hora}*\n(Concentração 1h antes no local)\n\n*CONVOCADAS:*\n\n${lista}`;
+        const pav = state.pavilion === 'outro' ? state.otherPavilion : state.pavilion;
+        let lista = state.atletas.filter(a => state.conv.includes(a.n)).map(a => `➡ ${a.nome}`).join('\n');
+        let texto = `*${state.gameName}* \n\n🏟  *${pav}*\n\n📆  *${state.gameDate}*\n⏰ *${state.gameTime}*\n(Concentração 1h antes no local)\n\n*CONVOCADAS:*\n\n${lista}`;
         navigator.clipboard.writeText(texto).then(() => alert("Copiado para o WhatsApp!"));
     };
 
@@ -265,7 +301,6 @@
     };
 
     window.changeSet = (s) => {
-        // Salvar log se houver pontos
         if (liveState.home > 0 || liveState.away > 0) {
             state.logs.push(`SET ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} (${state.advName})`);
         }
@@ -302,9 +337,22 @@
         liveState.currentLineup[2] = old[1]; // P3 -> P2
     }
 
-    window.resetLive = () => {
-        liveState.home = 0; liveState.away = 0; liveState.serving = 'home';
+    window.undoRotate = () => {
+        const old = [...liveState.currentLineup];
+        liveState.currentLineup[2] = old[5]; // P1 -> P2
+        liveState.currentLineup[5] = old[4]; // P6 -> P1
+        liveState.currentLineup[4] = old[3]; // P5 -> P6
+        liveState.currentLineup[3] = old[0]; // P4 -> P5
+        liveState.currentLineup[0] = old[1]; // P3 -> P4
+        liveState.currentLineup[1] = old[2]; // P2 -> P3
         renderLive();
+    };
+
+    window.resetLive = () => {
+        if(confirm("Reiniciar placar deste set?")) {
+            liveState.home = 0; liveState.away = 0; liveState.serving = 'home';
+            initLiveSet();
+        }
     };
 
     function renderLive() {
@@ -321,19 +369,24 @@
     }
 
     function render() {
-        document.getElementById('athlete-list').innerHTML = atletas.map(a => `
+        // Lista de Convocação
+        document.getElementById('athlete-list').innerHTML = state.atletas.sort((a,b)=>a.n-b.n).map(a => `
             <div class="athlete-card">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="athlete-num">${a.n}</div>
                     <span style="font-size:0.75rem; font-weight:600;">${a.nome}</span>
                 </div>
-                <input type="checkbox" class="switch" ${(state.conv || []).includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" class="switch" ${(state.conv || []).includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
+                    <button class="btn-remove" onclick="removeAthlete(${a.n})">×</button>
+                </div>
             </div>
         `).join('');
 
+        // Mini Quadras de Estratégia
         document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
             const res = validarSet(s);
-            const usadasNesteSet = [1,2,3,4,5,6].map(p => state.sets[`s${s}p${p}`]).filter(v => v);
+            const convocadas = state.atletas.filter(a => state.conv.includes(a.n)).sort((a,b)=>a.n-b.n);
             return `
             <div class="set-mini-court">
                 <div style="font-size:0.75rem; font-weight:800; color:var(--primary); margin-bottom:8px; display:flex; justify-content:space-between;">
@@ -348,10 +401,7 @@
                             <label style="font-size:0.45rem; color:#94a3b8;">P${p}</label>
                             <select onchange="updatePos('${id}', this.value)">
                                 <option value="">-</option>
-                                ${state.conv.sort((a,b)=>a-b).map(n => {
-                                    const jaUsada = usadasNesteSet.includes(String(n)) && cur != String(n);
-                                    return jaUsada ? '' : `<option value="${n}" ${cur == n ? 'selected' : ''}>${n}</option>`;
-                                }).join('')}
+                                ${convocadas.map(a => `<option value="${a.n}" ${cur == a.n ? 'selected' : ''}>${a.n}</option>`).join('')}
                             </select>
                         </div>`;
                     }).join('')}
@@ -360,9 +410,10 @@
             </div>`;
         }).join('');
 
+        // Histórico de Logs
         document.getElementById('logs-container').innerHTML = (state.logs || []).map(l => `
             <div class="log-item">${l}</div>
-        `).join('') || "<p style='text-align:center; color:#64748b;'>Sem registos.</p>";
+        `).join('') || "<p style='text-align:center; color:#64748b; font-size:0.8rem;'>Sem registos de sets.</p>";
     }
 
     window.showTab = (tab) => {
@@ -379,7 +430,7 @@
         }
     };
 
-    window.clearLogs = () => { if(confirm("Limpar histórico?")) { state.logs = []; sync(); } };
+    window.clearLogs = () => { if(confirm("Limpar todo o histórico de jogo?")) { state.logs = []; sync(); } };
 </script>
 </body>
 </html>
