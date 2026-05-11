@@ -44,8 +44,7 @@
         .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
         .pos-box { background: var(--card); padding: 6px 2px; border-radius: 8px; text-align: center; }
         .pos-box.occupied { border: 1px solid var(--primary); }
-        select { background: transparent; color: var(--white); border: none; font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none; }
-        option { background-color: #1e293b; color: white; }
+        .pos-box select { background: transparent; color: var(--white); border: none; font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none; }
 
         .scoreboard { display: flex; justify-content: space-around; align-items: center; background: var(--card); padding: 15px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); max-width: 400px; margin: 0 auto 20px; }
         .score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; cursor: pointer; }
@@ -72,7 +71,7 @@
     <div class="login-box">
         <h1 style="color: var(--primary); margin:0;">VOLEI PRO</h1>
         <input type="password" id="passInput" placeholder="Senha">
-        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800;">ENTRAR</button>
+        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800; cursor:pointer;">ENTRAR</button>
     </div>
 </div>
 
@@ -92,32 +91,20 @@
     <div class="game-info-card">
         <label>Adversário</label>
         <input type="text" id="adv-name" placeholder="Ex: SC BRAGA" onchange="updateAdvName(this.value)">
-        
         <label>Prova / Torneio</label>
         <input type="text" id="game-name" value="Troféu AVB/AVVC Iniciadas B Fem">
-        
-        <label>Local / Pavilhão</label>
-        <select id="pavilion-select" onchange="toggleOtherPavilion()">
-            <option value="ES ALCAIDES FARIA">ES ALCAIDES FARIA</option>
-            <option value="MUNICIPAL DE ADÃES">MUNICIPAL DE ADÃES</option>
-            <option value="outro">OUTRO (Digitar abaixo)</option>
-        </select>
-        <input type="text" id="other-pavilion" placeholder="Nome do Pavilhão" style="display:none;">
-
         <div style="display:flex; gap:10px;">
-            <div style="flex:2;"><label>Data</label><input type="text" id="game-date" placeholder="Ex: 25/04 (Sáb)"></div>
+            <div style="flex:2;"><label>Data</label><input type="text" id="game-date" placeholder="25/04 (Sáb)"></div>
             <div style="flex:1;"><label>Hora</label><input type="text" id="game-time" placeholder="12:00"></div>
         </div>
         <button class="btn-whatsapp" onclick="gerarMensagem()"><span>💬</span> Copiar WhatsApp</button>
     </div>
-
     <div id="athlete-list"></div>
-
     <div class="game-info-card" style="margin-top:20px; border-style: dashed;">
-        <label>Gestão de Plantel (Adicionar)</label>
+        <label>Adicionar Atleta</label>
         <div style="display:flex; gap:5px; margin-top:5px;">
             <input type="number" id="new-ath-num" placeholder="Nº" style="flex:1; margin:0;">
-            <input type="text" id="new-ath-name" placeholder="Nome da Atleta" style="flex:3; margin:0;">
+            <input type="text" id="new-ath-name" placeholder="Nome" style="flex:3; margin:0;">
             <button onclick="addAthlete()" style="background:var(--primary); border:none; border-radius:8px; padding:0 15px; font-weight:800; color:var(--bg); cursor:pointer;">+</button>
         </div>
     </div>
@@ -133,10 +120,9 @@
             <option value="1">SET 1</option><option value="2">SET 2</option><option value="3">SET 3</option><option value="4">SET 4</option><option value="5">SET 5</option>
         </select>
     </div>
-
     <div class="scoreboard">
         <div style="text-align:center; flex:1;">
-            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">NÓS</span>
+            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">FCA</span>
             <span class="score-num" id="score-home" onclick="removePoint('home')">0</span>
             <button class="score-btn" onclick="addPoint('home')">+ PONTO</button>
         </div>
@@ -147,14 +133,13 @@
             <button class="score-btn adv" onclick="addPoint('away')">+ PONTO</button>
         </div>
     </div>
-
     <div class="live-court" id="live-court-render"></div>
 </section>
 
 <section id="logs" class="section">
     <h2 style="font-size: 1rem; color: var(--primary); text-align: center;">RESUMO DO JOGO</h2>
     <div id="logs-container"></div>
-    <button onclick="clearLogs()" style="width:100%; background:none; border:1px solid var(--accent); color:var(--accent); padding:10px; border-radius:12px; margin-top:20px; font-size:0.7rem; font-weight:bold;">LIMPAR HISTÓRICO</button>
+    <button onclick="clearLogs()" style="width:100%; background:none; border:1px solid var(--accent); color:var(--accent); padding:10px; border-radius:12px; margin-top:20px; font-size:0.7rem; font-weight:bold; cursor:pointer;">LIMPAR HISTÓRICO</button>
 </section>
 
 <script type="module">
@@ -182,34 +167,21 @@
         {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
     ];
 
-    let state = { 
-        conv: [], 
-        sets: {}, 
-        atletas: ATLETAS_PADRAO,
-        advName: "ADV",
-        logs: []
-    };
-
-    let liveState = { currentSet: "1", home: 0, away: 0, serving: 'home', currentLineup: [] };
+    let state = { conv: [], sets: {}, atletas: ATLETAS_PADRAO, advName: "ADV", logs: [] };
+    let liveState = { currentSet: "1", home: 0, away: 0, serving: 'home', currentLineup: ["?", "?", "?", "?", "?", "?"] };
 
     onSnapshot(doc(db, "gestao", "atual"), (snap) => {
         if(snap.exists()) {
-            const data = snap.data();
-            state = data;
-            // TRAVA DE SEGURANÇA: Se a lista vier vazia do banco, restaura as 17 originais
-            if(!state.atletas || state.atletas.length === 0) {
-                state.atletas = ATLETAS_PADRAO;
-                sync();
-            }
+            state = snap.data();
+            if(!state.atletas || state.atletas.length === 0) state.atletas = ATLETAS_PADRAO;
             document.getElementById('sync-status').style.display = 'block';
             document.getElementById('adv-name').value = state.advName || "";
             document.getElementById('adv-label').innerText = state.advName || "ADV";
+            render();
+            initLiveSet(); // Garante que o Live carrega a formação da aba Quadra
         } else {
-            // Se o banco estiver vazio (primeira vez), salva as originais
             sync();
         }
-        render();
-        initLiveSet();
     });
 
     async function sync() { await setDoc(doc(db, "gestao", "atual"), state); }
@@ -225,8 +197,7 @@
         const nome = document.getElementById('new-ath-name').value;
         if(num && nome) {
             state.atletas.push({n: num, nome: nome});
-            document.getElementById('new-ath-num').value = "";
-            document.getElementById('new-ath-name').value = "";
+            document.getElementById('new-ath-num').value = ""; document.getElementById('new-ath-name').value = "";
             sync(); render();
         }
     };
@@ -240,12 +211,10 @@
 
     window.changeSet = (newSet) => {
         if(liveState.home > 0 || liveState.away > 0) {
-            const logMsg = `Set ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} ${state.advName}`;
-            state.logs.push(logMsg);
+            state.logs.push(`Set ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} ${state.advName}`);
         }
         liveState.currentSet = newSet;
-        liveState.home = 0;
-        liveState.away = 0;
+        liveState.home = 0; liveState.away = 0;
         sync();
         initLiveSet();
     };
@@ -268,6 +237,7 @@
 
     window.initLiveSet = () => {
         const s = liveState.currentSet;
+        // Posições Volei: P4, P3, P2 (Rede) | P5, P6, P1 (Fundo)
         liveState.currentLineup = [
             state.sets[`s${s}p4`] || "?", state.sets[`s${s}p3`] || "?", state.sets[`s${s}p2`] || "?",
             state.sets[`s${s}p5`] || "?", state.sets[`s${s}p6`] || "?", state.sets[`s${s}p1`] || "?"
@@ -277,12 +247,14 @@
 
     function rotate() {
         const old = [...liveState.currentLineup];
-        liveState.currentLineup[5] = old[2]; 
-        liveState.currentLineup[4] = old[5]; 
-        liveState.currentLineup[3] = old[4]; 
-        liveState.currentLineup[0] = old[3]; 
-        liveState.currentLineup[1] = old[0]; 
-        liveState.currentLineup[2] = old[1]; 
+        // Mapeamento de rotação: P2->P1, P1->P6, P6->P5, P5->P4, P4->P3, P3->P2
+        // Indices no array [0:P4, 1:P3, 2:P2, 3:P5, 4:P6, 5:P1]
+        liveState.currentLineup[5] = old[2]; // P2 -> P1
+        liveState.currentLineup[4] = old[5]; // P1 -> P6
+        liveState.currentLineup[3] = old[4]; // P6 -> P5
+        liveState.currentLineup[0] = old[3]; // P5 -> P4
+        liveState.currentLineup[1] = old[0]; // P4 -> P3
+        liveState.currentLineup[2] = old[1]; // P3 -> P2
     }
 
     function renderLive() {
@@ -299,6 +271,7 @@
     }
 
     function render() {
+        // Lista Atletas
         document.getElementById('athlete-list').innerHTML = state.atletas.sort((a,b)=>a.n - b.n).map(a => `
             <div class="athlete-card">
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -312,13 +285,13 @@
             </div>
         `).join('');
 
-        document.getElementById('logs-container').innerHTML = state.logs.map(log => `
-            <div class="log-item"><span>${log}</span></div>
-        `).join('') || "<p style='text-align:center; font-size:0.7rem; color:#64748b;'>Sem sets registados.</p>";
+        // Logs
+        document.getElementById('logs-container').innerHTML = state.logs.map(log => `<div class="log-item"><span>${log}</span></div>`).join('') || "<p style='text-align:center; font-size:0.7rem; color:#64748b;'>Sem registos.</p>";
 
+        // Quadras Estratégia (Aba QUADRA)
         document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
             const res = validarSet(s);
-            const usadasNesteSet = [1,2,3,4,5,6].map(p => state.sets[`s${s}p${p}`]).filter(v => v);
+            const jaEscaladas = [1,2,3,4,5,6].map(p => state.sets[`s${s}p${p}`]);
             return `
             <div class="set-mini-court">
                 <div style="font-size:0.75rem; font-weight:800; color:var(--primary); margin-bottom:8px; display:flex; justify-content:space-between;">
@@ -334,13 +307,14 @@
                             <select onchange="updatePos('${id}', this.value)">
                                 <option value="">-</option>
                                 ${state.conv.sort((a,b)=>a-b).map(n => {
-                                    const jaUsada = usadasNesteSet.includes(String(n)) && cur != String(n);
-                                    return jaUsada ? '' : `<option value="${n}" ${cur == n ? 'selected' : ''}>${n}</option>`;
+                                    const jaEmOutraPos = jaEscaladas.includes(String(n)) && cur != String(n);
+                                    return jaEmOutraPos ? '' : `<option value="${n}" ${cur == n ? 'selected' : ''}>${n}</option>`;
                                 }).join('')}
                             </select>
                         </div>`;
                     }).join('')}
                 </div>
+                ${res.msg ? `<div style="font-size:0.55rem; color:var(--accent); margin-top:5px;">${res.msg}</div>` : ''}
             </div>`;
         }).join('');
     }
@@ -358,27 +332,21 @@
         document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
         document.getElementById(tab).classList.add('active');
         document.getElementById('btn-' + tab).classList.add('active');
-        if(tab === 'live') renderLive();
+        if(tab === 'live') initLiveSet();
     };
     window.checkPass = () => {
         if(document.getElementById('passInput').value === 'volei2026') {
             document.getElementById('login-screen').style.display = 'none'; render();
         }
     };
-    window.clearLogs = () => { if(confirm("Limpar todos os logs?")) { state.logs = []; sync(); render(); } };
-    window.toggleOtherPavilion = () => {
-        const sel = document.getElementById('pavilion-select').value;
-        document.getElementById('other-pavilion').style.display = sel === 'outro' ? 'block' : 'none';
-    };
+    window.clearLogs = () => { if(confirm("Limpar histórico?")) { state.logs = []; sync(); render(); } };
     window.gerarMensagem = () => {
         const prova = document.getElementById('game-name').value;
-        const selPav = document.getElementById('pavilion-select').value;
-        const pav = selPav === 'outro' ? document.getElementById('other-pavilion').value : selPav;
         const data = document.getElementById('game-date').value;
         const hora = document.getElementById('game-time').value;
         let lista = state.atletas.filter(a => state.conv.includes(a.n)).map(a => `➡ ${a.nome}`).join('\n');
-        let texto = `*${prova}* \n\n🏟  *${pav}*\n\n📆  *${data}*\n⏰ *${hora}*\n(Concentração 1h antes no local)\n\n*CONVOCADAS:*\n\n${lista}`;
-        navigator.clipboard.writeText(texto).then(() => alert("Copiado para o WhatsApp!"));
+        let texto = `*${prova}*\n📆 *${data}* às *${hora}*\n\n*CONVOCADAS:*\n${lista}`;
+        navigator.clipboard.writeText(texto).then(() => alert("Copiado!"));
     };
 
     function validarSet(s) {
@@ -387,7 +355,7 @@
         const anterior = [1,2,3,4,5,6].map(p => parseInt(state.sets[`s${s-1}p${p}`])).filter(n => !isNaN(n));
         if (atual.length < 6) return { ok: true, msg: "" };
         const novos = atual.filter(p => !anterior.includes(p));
-        if (novos.length < 3) return { ok: false, msg: "Erro Alínea D" };
+        if (novos.length < 3) return { ok: false, msg: "Faltam 3 novas (Alínea D)" };
         return { ok: true, msg: "" };
     }
 </script>
