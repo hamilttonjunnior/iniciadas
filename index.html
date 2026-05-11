@@ -23,8 +23,8 @@
         header h1 { margin: 0; font-size: 1rem; font-weight: 800; color: var(--primary); }
 
         /* Barra de Navegação */
-        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 450px; background: rgba(30, 41, 59, 0.95); display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.7rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
+        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 500px; background: rgba(30, 41, 59, 0.95); display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
         .nav-item.active { background: var(--primary); color: var(--bg); }
 
         .section { display: none; padding: 10px; animation: fadeIn 0.3s ease; }
@@ -40,6 +40,7 @@
         .athlete-card { background: var(--card); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; }
         .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
         .btn-whatsapp { background: var(--success); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 5px; }
+        .btn-remove { background: none; border: none; color: var(--accent); font-size: 1rem; cursor: pointer; padding: 0 5px; }
 
         /* Aba Quadras */
         #sets-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 10px; }
@@ -52,7 +53,8 @@
 
         /* Aba Live Jogo */
         .scoreboard { display: flex; justify-content: space-around; align-items: center; background: var(--card); padding: 15px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); max-width: 400px; margin: 0 auto 20px; }
-        .score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; }
+        .score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; cursor: pointer; }
+        .score-num:active { transform: scale(0.9); opacity: 0.7; }
         .score-btn { background: var(--primary); color: var(--bg); border: none; padding: 12px; border-radius: 10px; font-weight: 800; width: 100%; margin-top: 10px; }
         .score-btn.adv { background: var(--accent); color: white; }
 
@@ -66,7 +68,8 @@
         .switch:checked { background: var(--success); }
         .switch::before { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
         .switch:checked::before { left: 19px; }
-        .msg-regra { font-size: 0.65rem; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; min-height: 35px; line-height: 1.3; }
+        
+        .log-item { background: var(--card); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; }
     </style>
 </head>
 <body>
@@ -87,11 +90,15 @@
 <div class="nav-bar">
     <div class="nav-item active" id="btn-convocacao" onclick="showTab('convocacao')">CONVOCAR</div>
     <div class="nav-item" id="btn-sets" onclick="showTab('sets')">QUADRA</div>
-    <div class="nav-item" id="btn-live" onclick="showTab('live')">LIVE JOGO</div>
+    <div class="nav-item" id="btn-live" onclick="showTab('live')">LIVE</div>
+    <div class="nav-item" id="btn-logs" onclick="showTab('logs')">LOGS</div>
 </div>
 
 <section id="convocacao" class="section active">
     <div class="game-info-card">
+        <label>Adversário</label>
+        <input type="text" id="adv-name" placeholder="Nome do Adversário" onchange="updateAdvName(this.value)">
+        
         <label>Prova / Torneio</label>
         <input type="text" id="game-name" value="Troféu AVB/AVVC Iniciadas B Fem">
         
@@ -109,7 +116,17 @@
         </div>
         <button class="btn-whatsapp" onclick="gerarMensagem()"><span>💬</span> Copiar WhatsApp</button>
     </div>
+
     <div id="athlete-list"></div>
+
+    <div class="game-info-card" style="margin-top:20px;">
+        <label>Adicionar Atleta</label>
+        <div style="display:flex; gap:5px; margin-top:5px;">
+            <input type="number" id="new-ath-num" placeholder="Nº" style="flex:1; margin:0;">
+            <input type="text" id="new-ath-name" placeholder="Nome" style="flex:3; margin:0;">
+            <button onclick="addAthlete()" style="background:var(--primary); border:none; border-radius:8px; padding:0 15px; font-weight:800;">+</button>
+        </div>
+    </div>
 </section>
 
 <section id="sets" class="section">
@@ -118,30 +135,32 @@
 
 <section id="live" class="section">
     <div style="text-align:center; margin-bottom: 15px;">
-        <select id="live-set-selector" onchange="initLiveSet()" style="width: auto; background: var(--card); padding: 8px 15px; border-radius: 12px; border: 1px solid var(--border); color: var(--primary); font-weight: 800;">
+        <select id="live-set-selector" onchange="changeSet(this.value)" style="width: auto; background: var(--card); padding: 8px 15px; border-radius: 12px; border: 1px solid var(--border); color: var(--primary); font-weight: 800;">
             <option value="1">SET 1</option><option value="2">SET 2</option><option value="3">SET 3</option><option value="4">SET 4</option><option value="5">SET 5</option>
         </select>
     </div>
 
     <div class="scoreboard">
         <div style="text-align:center; flex:1;">
-            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">NÓS</span>
-            <span class="score-num" id="score-home">0</span>
+            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">FCA</span>
+            <span class="score-num" id="score-home" onclick="removePoint('home')">0</span>
             <button class="score-btn" onclick="addPoint('home')">+ PONTO</button>
         </div>
         <div style="font-weight:900; color:#475569; margin: 0 10px;">VS</div>
         <div style="text-align:center; flex:1;">
-            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">ADV</span>
-            <span class="score-num" id="score-away">0</span>
+            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;" id="adv-label">ADV</span>
+            <span class="score-num" id="score-away" onclick="removePoint('away')">0</span>
             <button class="score-btn adv" onclick="addPoint('away')">+ PONTO</button>
         </div>
     </div>
 
     <div class="live-court" id="live-court-render"></div>
-    
-    <div style="text-align: center; margin-top: 20px;">
-        <button onclick="resetLive()" style="background:none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 20px; border-radius: 10px; font-size: 0.7rem; font-weight: 700;">REINICIAR PLACAR</button>
-    </div>
+</section>
+
+<section id="logs" class="section">
+    <h2 style="font-size: 1rem; color: var(--primary); text-align: center;">RESUMO DO JOGO</h2>
+    <div id="logs-container"></div>
+    <button onclick="clearLogs()" style="width:100%; background:none; border:1px solid var(--accent); color:var(--accent); padding:10px; border-radius:12px; margin-top:20px; font-size:0.7rem;">LIMPAR HISTÓRICO</button>
 </section>
 
 <script type="module">
@@ -160,78 +179,77 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const atletas = [
-        {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
-        {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
-        {n: 11, nome: "Beatriz Brito"}, {n: 12, nome: "Carolina Rodrigues"}, {n: 13, nome: "Clara Ferreira"},
-        {n: 15, nome: "Zita Macedo"}, {n: 17, nome: "Maria Luisa Baptista"}, {n: 19, nome: "Nadia Silva"},
-        {n: 20, nome: "Francisca Miranda"}, {n: 22, nome: "Carolina Verissimo"}, {n: 26, nome: "Luana Santana"},
-        {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
-    ];
+    let state = { 
+        conv: [], 
+        sets: {}, 
+        atletas: [
+            {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
+            {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
+            {n: 11, nome: "Beatriz Brito"}, {n: 12, nome: "Carolina Rodrigues"}, {n: 13, nome: "Clara Ferreira"},
+            {n: 15, nome: "Zita Macedo"}, {n: 17, nome: "Maria Luisa Baptista"}, {n: 19, nome: "Nadia Silva"},
+            {n: 20, nome: "Francisca Miranda"}, {n: 22, nome: "Carolina Verissimo"}, {n: 26, nome: "Luana Santana"},
+            {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
+        ],
+        advName: "ADV",
+        logs: []
+    };
 
-    let state = { conv: [], sets: {} };
-    let liveState = { home: 0, away: 0, serving: 'home', currentLineup: [] };
+    let liveState = { 
+        currentSet: "1",
+        home: 0, 
+        away: 0, 
+        serving: 'home', 
+        currentLineup: [] 
+    };
 
     onSnapshot(doc(db, "gestao", "atual"), (snap) => {
         if(snap.exists()) {
             state = snap.data();
             document.getElementById('sync-status').style.display = 'block';
+            document.getElementById('adv-name').value = state.advName || "";
+            document.getElementById('adv-label').innerText = state.advName || "ADV";
         }
         render();
-        if(liveState.currentLineup.length === 0) initLiveSet();
+        initLiveSet();
     });
 
     async function sync() { await setDoc(doc(db, "gestao", "atual"), state); }
 
-    window.toggleOtherPavilion = () => {
-        const sel = document.getElementById('pavilion-select').value;
-        document.getElementById('other-pavilion').style.display = sel === 'outro' ? 'block' : 'none';
+    window.updateAdvName = (val) => {
+        state.advName = val.toUpperCase();
+        document.getElementById('adv-label').innerText = state.advName;
+        sync();
     };
 
-    window.gerarMensagem = () => {
-        const prova = document.getElementById('game-name').value;
-        const selPav = document.getElementById('pavilion-select').value;
-        const pav = selPav === 'outro' ? document.getElementById('other-pavilion').value : selPav;
-        const data = document.getElementById('game-date').value;
-        const hora = document.getElementById('game-time').value;
-        let lista = atletas.filter(a => state.conv.includes(a.n)).map(a => `➡ ${a.nome}`).join('\n');
-        let texto = `*${prova}* \n\n🏟  *${pav}*\n\n📆  *${data}*\n⏰ *${hora}*\n(Concentração 1h antes no local)\n\n*CONVOCADAS:*\n\n${lista}`;
-        navigator.clipboard.writeText(texto).then(() => alert("Copiado para o WhatsApp!"));
-    };
-
-    window.toggle = (n) => {
-        state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n];
-        sync(); render();
-    };
-
-    window.updatePos = (key, val) => {
-        state.sets[key] = val;
-        sync(); render();
-    };
-
-    function validarSet(s) {
-        if (s === 1) return { ok: true, msg: "Define o 1º Set." };
-        const atual = [1,2,3,4,5,6].map(p => parseInt(state.sets[`s${s}p${p}`])).filter(n => !isNaN(n));
-        const anterior = [1,2,3,4,5,6].map(p => parseInt(state.sets[`s${s-1}p${p}`])).filter(n => !isNaN(n));
-        if (atual.length < 6) return { ok: true, msg: "A aguardar 6 atletas..." };
-        const novos = atual.filter(p => !anterior.includes(p));
-        if (novos.length < 3) return { ok: false, msg: `✗ ERRO ALÍNEA D: Precisas de 3 novas jogadoras.` };
-        if (s >= 3) {
-            const antAnt = [1,2,3,4,5,6].map(p => parseInt(state.sets[`s${s-2}p${p}`])).filter(n => !isNaN(n));
-            const infratores = atual.filter(p => anterior.includes(p) && antAnt.includes(p));
-            if (infratores.length > 0) return { ok: false, msg: `✗ ERRO: # ${infratores.join(', ')} jogaram 2 sets seguidos.` };
+    window.addAthlete = () => {
+        const num = parseInt(document.getElementById('new-ath-num').value);
+        const nome = document.getElementById('new-ath-name').value;
+        if(num && nome) {
+            state.atletas.push({n: num, nome: nome});
+            document.getElementById('new-ath-num').value = "";
+            document.getElementById('new-ath-name').value = "";
+            sync(); render();
         }
-        return { ok: true, msg: "✓ Formação Válida." };
-    }
+    };
 
-    // --- LIVE ---
-    window.initLiveSet = () => {
-        const s = document.getElementById('live-set-selector').value;
-        liveState.currentLineup = [
-            state.sets[`s${s}p4`] || "?", state.sets[`s${s}p3`] || "?", state.sets[`s${s}p2`] || "?",
-            state.sets[`s${s}p5`] || "?", state.sets[`s${s}p6`] || "?", state.sets[`s${s}p1`] || "?"
-        ];
-        renderLive();
+    window.removeAthlete = (n) => {
+        if(confirm(`Remover atleta Nº ${n}?`)) {
+            state.atletas = state.atletas.filter(a => a.n !== n);
+            sync(); render();
+        }
+    };
+
+    window.changeSet = (newSet) => {
+        // Guardar log do set anterior se houve pontos
+        if(liveState.home > 0 || liveState.away > 0) {
+            const logMsg = `Set ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} ${state.advName}`;
+            state.logs.push(logMsg);
+        }
+        liveState.currentSet = newSet;
+        liveState.home = 0;
+        liveState.away = 0;
+        sync();
+        initLiveSet();
     };
 
     window.addPoint = (team) => {
@@ -244,6 +262,21 @@
         renderLive();
     };
 
+    window.removePoint = (team) => {
+        if(team === 'home' && liveState.home > 0) liveState.home--;
+        else if(team === 'away' && liveState.away > 0) liveState.away--;
+        renderLive();
+    };
+
+    window.initLiveSet = () => {
+        const s = liveState.currentSet;
+        liveState.currentLineup = [
+            state.sets[`s${s}p4`] || "?", state.sets[`s${s}p3`] || "?", state.sets[`s${s}p2`] || "?",
+            state.sets[`s${s}p5`] || "?", state.sets[`s${s}p6`] || "?", state.sets[`s${s}p1`] || "?"
+        ];
+        renderLive();
+    };
+
     function rotate() {
         const old = [...liveState.currentLineup];
         liveState.currentLineup[5] = old[2]; // P2 -> P1
@@ -253,11 +286,6 @@
         liveState.currentLineup[1] = old[0]; // P4 -> P3
         liveState.currentLineup[2] = old[1]; // P3 -> P2
     }
-
-    window.resetLive = () => {
-        liveState.home = 0; liveState.away = 0; liveState.serving = 'home';
-        initLiveSet();
-    };
 
     function renderLive() {
         document.getElementById('score-home').innerText = liveState.home;
@@ -273,16 +301,25 @@
     }
 
     function render() {
-        document.getElementById('athlete-list').innerHTML = atletas.map(a => `
+        document.getElementById('athlete-list').innerHTML = state.atletas.map(a => `
             <div class="athlete-card">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="athlete-num">${a.n}</div>
                     <span style="font-size:0.7rem; font-weight:600;">${a.nome}</span>
                 </div>
-                <input type="checkbox" class="switch" ${state.conv.includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" class="switch" ${state.conv.includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
+                    <button class="btn-remove" onclick="removeAthlete(${a.n})">×</button>
+                </div>
             </div>
         `).join('');
 
+        // Renderizar Logs
+        document.getElementById('logs-container').innerHTML = state.logs.map(log => `
+            <div class="log-item"><span>${log}</span></div>
+        `).join('') || "<p style='text-align:center; font-size:0.7rem; color:#64748b;'>Sem sets registados.</p>";
+
+        // Renderizar Quadras de Estratégia
         document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
             const res = validarSet(s);
             const usadasNesteSet = [1,2,3,4,5,6].map(p => state.sets[`s${s}p${p}`]).filter(v => v);
@@ -308,11 +345,19 @@
                         </div>`;
                     }).join('')}
                 </div>
-                <div class="msg-regra" style="color:${res.ok?'#94a3b8':'var(--accent)'}">${res.msg}</div>
             </div>`;
         }).join('');
     }
 
+    // Funções de apoio
+    window.toggle = (n) => {
+        state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n];
+        sync(); render();
+    };
+    window.updatePos = (key, val) => {
+        state.sets[key] = val;
+        sync(); render();
+    };
     window.showTab = (tab) => {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
@@ -320,12 +365,22 @@
         document.getElementById('btn-' + tab).classList.add('active');
         if(tab === 'live') renderLive();
     };
-
     window.checkPass = () => {
         if(document.getElementById('passInput').value === 'volei2026') {
             document.getElementById('login-screen').style.display = 'none'; render();
         }
     };
+    window.clearLogs = () => { if(confirm("Limpar todos os logs?")) { state.logs = []; sync(); render(); } };
+
+    function validarSet(s) {
+        if (s === 1) return { ok: true, msg: "" };
+        const atual = [1,2,3,4,5,6].map(p => parseInt(state.sets[`s${s}p${p}`])).filter(n => !isNaN(n));
+        const anterior = [1,2,3,4,5,6].map(p => parseInt(state.sets[`s${s-1}p${p}`])).filter(n => !isNaN(n));
+        if (atual.length < 6) return { ok: true, msg: "" };
+        const novos = atual.filter(p => !anterior.includes(p));
+        if (novos.length < 3) return { ok: false, msg: "Erro Alínea D" };
+        return { ok: true, msg: "" };
+    }
 </script>
 </body>
 </html>
