@@ -14,7 +14,6 @@
 
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--white); margin: 0; padding-bottom: 110px; overflow-x: hidden; }
         
-        /* Login */
         #login-screen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 3000; }
         .login-box { background: var(--card); backdrop-filter: blur(20px); padding: 35px; border-radius: 28px; border: 1px solid var(--border); text-align: center; width: 85%; max-width: 320px; }
         .login-box input { width: 100%; padding: 14px; margin: 20px 0; border-radius: 12px; border: 1px solid var(--border); background: #1e293b; color: white; text-align: center; box-sizing: border-box; font-size: 16px; }
@@ -22,7 +21,6 @@
         header { padding: 15px; text-align: center; }
         header h1 { margin: 0; font-size: 1rem; font-weight: 800; color: var(--primary); }
 
-        /* Barra de Navegação */
         .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 500px; background: rgba(30, 41, 59, 0.95); display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
         .nav-item.active { background: var(--primary); color: var(--bg); }
@@ -31,7 +29,6 @@
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Aba Convocação */
         .game-info-card { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 18px; margin-bottom: 20px; max-width: 500px; margin: 0 auto 20px; }
         .game-info-card input, .game-info-card select { width: 100%; padding: 10px; margin: 5px 0 12px; border-radius: 8px; border: 1px solid var(--border); background: #1e293b; color: white; font-size: 0.85rem; box-sizing: border-box; }
         .game-info-card label { font-size: 0.65rem; font-weight: 700; color: var(--primary); text-transform: uppercase; }
@@ -40,9 +37,8 @@
         .athlete-card { background: var(--card); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; }
         .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
         .btn-whatsapp { background: var(--success); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 5px; }
-        .btn-remove { background: none; border: none; color: var(--accent); font-size: 1rem; cursor: pointer; padding: 0 5px; }
+        .btn-remove { background: none; border: none; color: var(--accent); font-size: 1.2rem; cursor: pointer; padding: 0 5px; line-height: 1; }
 
-        /* Aba Quadras */
         #sets-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 10px; }
         .set-mini-court { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px; border-radius: 18px; }
         .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
@@ -51,10 +47,8 @@
         select { background: transparent; color: var(--white); border: none; font-size: 1rem; font-weight: 800; width: 100%; text-align: center; outline: none; }
         option { background-color: #1e293b; color: white; }
 
-        /* Aba Live Jogo */
         .scoreboard { display: flex; justify-content: space-around; align-items: center; background: var(--card); padding: 15px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); max-width: 400px; margin: 0 auto 20px; }
         .score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; cursor: pointer; }
-        .score-num:active { transform: scale(0.9); opacity: 0.7; }
         .score-btn { background: var(--primary); color: var(--bg); border: none; padding: 12px; border-radius: 10px; font-weight: 800; width: 100%; margin-top: 10px; }
         .score-btn.adv { background: var(--accent); color: white; }
 
@@ -69,7 +63,7 @@
         .switch::before { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
         .switch:checked::before { left: 19px; }
         
-        .log-item { background: var(--card); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; }
+        .log-item { background: var(--card); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -97,7 +91,7 @@
 <section id="convocacao" class="section active">
     <div class="game-info-card">
         <label>Adversário</label>
-        <input type="text" id="adv-name" placeholder="Nome do Adversário" onchange="updateAdvName(this.value)">
+        <input type="text" id="adv-name" placeholder="Ex: SC BRAGA" onchange="updateAdvName(this.value)">
         
         <label>Prova / Torneio</label>
         <input type="text" id="game-name" value="Troféu AVB/AVVC Iniciadas B Fem">
@@ -119,12 +113,12 @@
 
     <div id="athlete-list"></div>
 
-    <div class="game-info-card" style="margin-top:20px;">
-        <label>Adicionar Atleta</label>
+    <div class="game-info-card" style="margin-top:20px; border-style: dashed;">
+        <label>Gestão de Plantel (Adicionar)</label>
         <div style="display:flex; gap:5px; margin-top:5px;">
             <input type="number" id="new-ath-num" placeholder="Nº" style="flex:1; margin:0;">
-            <input type="text" id="new-ath-name" placeholder="Nome" style="flex:3; margin:0;">
-            <button onclick="addAthlete()" style="background:var(--primary); border:none; border-radius:8px; padding:0 15px; font-weight:800;">+</button>
+            <input type="text" id="new-ath-name" placeholder="Nome da Atleta" style="flex:3; margin:0;">
+            <button onclick="addAthlete()" style="background:var(--primary); border:none; border-radius:8px; padding:0 15px; font-weight:800; color:var(--bg); cursor:pointer;">+</button>
         </div>
     </div>
 </section>
@@ -142,7 +136,7 @@
 
     <div class="scoreboard">
         <div style="text-align:center; flex:1;">
-            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">FCA</span>
+            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">NÓS</span>
             <span class="score-num" id="score-home" onclick="removePoint('home')">0</span>
             <button class="score-btn" onclick="addPoint('home')">+ PONTO</button>
         </div>
@@ -160,7 +154,7 @@
 <section id="logs" class="section">
     <h2 style="font-size: 1rem; color: var(--primary); text-align: center;">RESUMO DO JOGO</h2>
     <div id="logs-container"></div>
-    <button onclick="clearLogs()" style="width:100%; background:none; border:1px solid var(--accent); color:var(--accent); padding:10px; border-radius:12px; margin-top:20px; font-size:0.7rem;">LIMPAR HISTÓRICO</button>
+    <button onclick="clearLogs()" style="width:100%; background:none; border:1px solid var(--accent); color:var(--accent); padding:10px; border-radius:12px; margin-top:20px; font-size:0.7rem; font-weight:bold;">LIMPAR HISTÓRICO</button>
 </section>
 
 <script type="module">
@@ -179,6 +173,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // RESTAURADAS TODAS AS ATLETAS
     let state = { 
         conv: [], 
         sets: {}, 
@@ -240,7 +235,6 @@
     };
 
     window.changeSet = (newSet) => {
-        // Guardar log do set anterior se houve pontos
         if(liveState.home > 0 || liveState.away > 0) {
             const logMsg = `Set ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} ${state.advName}`;
             state.logs.push(logMsg);
@@ -279,12 +273,12 @@
 
     function rotate() {
         const old = [...liveState.currentLineup];
-        liveState.currentLineup[5] = old[2]; // P2 -> P1
-        liveState.currentLineup[4] = old[5]; // P1 -> P6
-        liveState.currentLineup[3] = old[4]; // P6 -> P5
-        liveState.currentLineup[0] = old[3]; // P5 -> P4
-        liveState.currentLineup[1] = old[0]; // P4 -> P3
-        liveState.currentLineup[2] = old[1]; // P3 -> P2
+        liveState.currentLineup[5] = old[2]; 
+        liveState.currentLineup[4] = old[5]; 
+        liveState.currentLineup[3] = old[4]; 
+        liveState.currentLineup[0] = old[3]; 
+        liveState.currentLineup[1] = old[0]; 
+        liveState.currentLineup[2] = old[1]; 
     }
 
     function renderLive() {
@@ -301,7 +295,7 @@
     }
 
     function render() {
-        document.getElementById('athlete-list').innerHTML = state.atletas.map(a => `
+        document.getElementById('athlete-list').innerHTML = state.atletas.sort((a,b)=>a.n - b.n).map(a => `
             <div class="athlete-card">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="athlete-num">${a.n}</div>
@@ -314,12 +308,10 @@
             </div>
         `).join('');
 
-        // Renderizar Logs
         document.getElementById('logs-container').innerHTML = state.logs.map(log => `
             <div class="log-item"><span>${log}</span></div>
         `).join('') || "<p style='text-align:center; font-size:0.7rem; color:#64748b;'>Sem sets registados.</p>";
 
-        // Renderizar Quadras de Estratégia
         document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
             const res = validarSet(s);
             const usadasNesteSet = [1,2,3,4,5,6].map(p => state.sets[`s${s}p${p}`]).filter(v => v);
@@ -349,7 +341,6 @@
         }).join('');
     }
 
-    // Funções de apoio
     window.toggle = (n) => {
         state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n];
         sync(); render();
@@ -371,6 +362,20 @@
         }
     };
     window.clearLogs = () => { if(confirm("Limpar todos os logs?")) { state.logs = []; sync(); render(); } };
+    window.toggleOtherPavilion = () => {
+        const sel = document.getElementById('pavilion-select').value;
+        document.getElementById('other-pavilion').style.display = sel === 'outro' ? 'block' : 'none';
+    };
+    window.gerarMensagem = () => {
+        const prova = document.getElementById('game-name').value;
+        const selPav = document.getElementById('pavilion-select').value;
+        const pav = selPav === 'outro' ? document.getElementById('other-pavilion').value : selPav;
+        const data = document.getElementById('game-date').value;
+        const hora = document.getElementById('game-time').value;
+        let lista = state.atletas.filter(a => state.conv.includes(a.n)).map(a => `➡ ${a.nome}`).join('\n');
+        let texto = `*${prova}* \n\n🏟  *${pav}*\n\n📆  *${data}*\n⏰ *${hora}*\n(Concentração 1h antes no local)\n\n*CONVOCADAS:*\n\n${lista}`;
+        navigator.clipboard.writeText(texto).then(() => alert("Copiado para o WhatsApp!"));
+    };
 
     function validarSet(s) {
         if (s === 1) return { ok: true, msg: "" };
