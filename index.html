@@ -41,6 +41,7 @@
         .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
         .btn-whatsapp { background: var(--success); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 5px; }
         .btn-remove { background: none; border: none; color: var(--accent); cursor: pointer; font-weight: bold; padding: 0 5px; }
+        .role-select { background: #1e293b; color: var(--primary); border: none; font-size: 0.6rem; font-weight: bold; border-radius: 4px; padding: 2px; }
 
         /* Aba Quadras */
         #sets-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 10px; }
@@ -68,6 +69,11 @@
         .switch:checked { background: var(--success); }
         .switch::before { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
         .switch:checked::before { left: 19px; }
+
+        /* Painel Tático de Texto */
+        .tactic-hint { background: #0f172a; border: 1px solid var(--primary); padding: 15px; border-radius: 15px; max-width: 400px; margin: 20px auto; text-align: center; }
+        .tactic-title { color: var(--primary); font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; }
+        .tactic-desc { font-size: 0.7rem; color: #94a3b8; line-height: 1.4; }
 
         /* Aba Logs */
         .log-item { background: var(--card); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--primary); font-size: 0.85rem; }
@@ -156,6 +162,11 @@
     </div>
 
     <div class="live-court" id="live-court-render"></div>
+
+    <div class="tactic-hint" id="tactic-panel">
+        <div class="tactic-title" id="tactic-pos-title">SISTEMA 5x1</div>
+        <div class="tactic-desc" id="tactic-pos-desc">Defina a função da Levantadora (LEV) na aba Convocação para ver as instruções de transição.</div>
+    </div>
     
     <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
         <button onclick="undoRotate()" style="background:none; border: 1px solid #64748b; color:#64748b; padding: 8px 15px; border-radius: 10px; font-size: 0.65rem; font-weight: 700;">↺ VOLTAR ROTAÇÃO</button>
@@ -184,7 +195,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Estado inicial com atletas padrão
     let state = { 
         conv: [], 
         sets: {}, 
@@ -195,6 +205,7 @@
         gameTime: "", 
         pavilion: "ES ALCAIDES FARIA", 
         otherPavilion: "",
+        roles: {}, // Novo campo para funções táticas
         atletas: [
             {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
             {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
@@ -252,6 +263,11 @@
         } 
     };
 
+    window.updateRole = (n, role) => {
+        state.roles[n] = role;
+        sync();
+    };
+
     window.toggleOtherPavilion = (doSync = true) => {
         const sel = document.getElementById('pavilion-select').value;
         document.getElementById('other-pavilion').style.display = sel === 'outro' ? 'block' : 'none';
@@ -290,7 +306,7 @@
         return { ok: true, msg: "✓ Formação Válida." };
     }
 
-    // --- LIVE ---
+    // --- LIVE & TÁTICA ---
     window.initLiveSet = () => {
         const s = liveState.currentSet;
         liveState.currentLineup = [
@@ -355,6 +371,34 @@
         }
     };
 
+    function updateTacticHint() {
+        const labels = [4, 3, 2, 5, 6, 1];
+        let setterPos = null;
+        liveState.currentLineup.forEach((num, i) => {
+            if (state.roles[num] === 'LEV') setterPos = labels[i];
+        });
+
+        const posTitle = document.getElementById('tactic-pos-title');
+        const posDesc = document.getElementById('tactic-pos-desc');
+
+        const descriptions = {
+            1: ["LEVANTADOR EM P1", "[cite: 1] Transição da zona 1. Ponta e Central na rede para ataque. [cite: 9, 12]"],
+            6: ["LEVANTADOR EM P6", "[cite: 18] Infiltração central. O Levantador infiltra-se entre as posições 2 e 3 para distribuir. [cite: 24, 35]"],
+            5: ["LEVANTADOR EM P5", "[cite: 38] Transição da zona 5 pela esquerda. Atenção à cobertura do passe e ataque rápido pela entrada. [cite: 40, 52]"],
+            4: ["LEVANTADOR EM P4", "[cite: 58] Levantador na rede (Entrada). Troca rápida para a posição 2 após o saque para distribuir. [cite: 59, 75]"],
+            3: ["LEVANTADOR EM P3", "[cite: 77] Levantador na rede (Centro). Transição para a saída de rede (P2) para organizar o ataque. [cite: 78, 86]"],
+            2: ["LEVANTADOR EM P2", "[cite: 96] Levantador na rede (Saída). Posição base de distribuição já estabilizada na zona de levantamento. [cite: 100, 106]"]
+        };
+
+        if (setterPos && descriptions[setterPos]) {
+            posTitle.innerText = descriptions[setterPos][0];
+            posDesc.innerText = descriptions[setterPos][1];
+        } else {
+            posTitle.innerText = "SISTEMA 5x1";
+            posDesc.innerText = "Indique a função da levantadora (LEV) no plantel para ver as transições.";
+        }
+    }
+
     function renderLive() {
         document.getElementById('score-home').innerText = liveState.home;
         document.getElementById('score-away').innerText = liveState.away;
@@ -366,15 +410,25 @@
                 ${(liveState.serving === 'home' && labels[i] === 1) ? '<div class="server-ball"></div>' : ''}
             </div>
         `).join('');
+        updateTacticHint();
     }
 
     function render() {
-        // Lista de Convocação
+        // Lista de Convocação com Seletor de Função
         document.getElementById('athlete-list').innerHTML = state.atletas.sort((a,b)=>a.n-b.n).map(a => `
             <div class="athlete-card">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="athlete-num">${a.n}</div>
-                    <span style="font-size:0.75rem; font-weight:600;">${a.nome}</span>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="athlete-num">${a.n}</div>
+                        <span style="font-size:0.75rem; font-weight:600;">${a.nome}</span>
+                    </div>
+                    <select class="role-select" onchange="updateRole(${a.n}, this.value)">
+                        <option value="">FUNÇÃO</option>
+                        <option value="LEV" ${state.roles[a.n]=='LEV'?'selected':''}>LEV</option>
+                        <option value="OP" ${state.roles[a.n]=='OP'?'selected':''}>OP</option>
+                        <option value="C" ${state.roles[a.n]=='C'?'selected':''}>CEN</option>
+                        <option value="P" ${state.roles[a.n]=='P'?'selected':''}>PON</option>
+                    </select>
                 </div>
                 <div style="display:flex; align-items:center; gap:10px;">
                     <input type="checkbox" class="switch" ${(state.conv || []).includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
