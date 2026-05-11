@@ -11,54 +11,43 @@
             --primary: #38bdf8; --accent: #f43f5e; --success: #22c55e;
             --white: #f8fafc; --border: rgba(255, 255, 255, 0.1);
         }
-
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--white); margin: 0; padding-bottom: 110px; overflow-x: hidden; }
-        
         #login-screen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 3000; }
         .login-box { background: var(--card); backdrop-filter: blur(20px); padding: 35px; border-radius: 28px; border: 1px solid var(--border); text-align: center; width: 85%; max-width: 320px; }
         .login-box input { width: 100%; padding: 14px; margin: 20px 0; border-radius: 12px; border: 1px solid var(--border); background: #1e293b; color: white; text-align: center; box-sizing: border-box; font-size: 16px; }
-        
         header { padding: 15px; text-align: center; }
         header h1 { margin: 0; font-size: 1rem; font-weight: 800; color: var(--primary); }
-
         .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 500px; background: rgba(30, 41, 59, 0.95); display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
         .nav-item.active { background: var(--primary); color: var(--bg); }
-
         .section { display: none; padding: 10px; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
         .game-info-card { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 18px; margin-bottom: 20px; max-width: 500px; margin: 0 auto 20px; }
-        .game-info-card input { width: 100%; padding: 10px; margin: 5px 0 12px; border-radius: 8px; border: 1px solid var(--border); background: #1e293b; color: white; font-size: 0.85rem; box-sizing: border-box; }
-        .game-info-card label { font-size: 0.6rem; font-weight: 700; color: var(--primary); text-transform: uppercase; }
-        
+        .game-info-card input, .game-info-card select { width: 100%; padding: 10px; margin: 5px 0 12px; border-radius: 8px; border: 1px solid var(--border); background: #1e293b; color: white; font-size: 0.85rem; box-sizing: border-box; }
+        .game-info-card label { font-size: 0.65rem; font-weight: 700; color: var(--primary); text-transform: uppercase; }
         #athlete-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; max-width: 900px; margin: 0 auto; }
         .athlete-card { background: var(--card); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; }
-        .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
-
+        .athlete-num { background: var(--primary); color: var(--bg); font-weight: 800; width: 22px; height: 22px; border-radius: 6px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
+        .btn-whatsapp { background: var(--success); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 5px; }
         #sets-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 10px; }
         .set-mini-court { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px; border-radius: 18px; }
         .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-        .pos-box { background: var(--card); padding: 6px 2px; border-radius: 8px; text-align: center; }
-        .pos-box select { background: transparent; color: white; border: none; font-size: 1rem; font-weight: bold; width: 100%; text-align: center; }
-
+        .pos-box { background: var(--card); padding: 6px 2px; border-radius: 8px; text-align: center; border: 1px solid transparent; }
+        .pos-box.occupied { border-color: var(--primary); }
+        .pos-box select { background: transparent; color: white; border: none; font-size: 1rem; font-weight: bold; width: 100%; text-align-last: center; }
         .scoreboard { display: flex; justify-content: space-around; align-items: center; background: var(--card); padding: 15px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); max-width: 400px; margin: 0 auto 20px; }
         .score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block; cursor: pointer; }
         .score-btn { background: var(--primary); color: var(--bg); border: none; padding: 12px; border-radius: 10px; font-weight: 800; width: 100%; margin-top: 10px; }
         .score-btn.adv { background: var(--accent); color: white; }
-
         .live-court { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background: #1e3a8a; padding: 25px; border-radius: 15px; border: 2px solid white; max-width: 320px; margin: 0 auto; }
         .live-pos { background: rgba(255,255,255,0.15); aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; border: 1px solid rgba(255,255,255,0.4); position: relative; }
         .pos-label { font-size: 0.55rem; color: #cbd5e1; position: absolute; top: 6px; font-weight: 700; }
         .server-ball { width: 14px; height: 14px; background: #fbbf24; border-radius: 50%; position: absolute; bottom: -6px; }
-
-        .switch { width: 36px; height: 20px; background: #334155; border-radius: 20px; position: relative; appearance: none; cursor: pointer; outline: none; }
+        .switch { width: 36px; height: 20px; background: #334155; border-radius: 20px; position: relative; appearance: none; cursor: pointer; }
         .switch:checked { background: var(--success); }
         .switch::before { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
         .switch:checked::before { left: 19px; }
-        
-        .log-item { background: var(--card); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--primary); font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -67,7 +56,7 @@
     <div class="login-box">
         <h1 style="color: var(--primary); margin:0;">VOLEI PRO</h1>
         <input type="password" id="passInput" placeholder="Senha">
-        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800; cursor:pointer;">ENTRAR</button>
+        <button onclick="checkPass()" style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary); color:var(--bg); font-weight:800;">ENTRAR</button>
     </div>
 </div>
 
@@ -85,26 +74,39 @@
 
 <section id="convocacao" class="section active">
     <div class="game-info-card">
-        <label>Nome do Adversário</label>
-        <input type="text" id="adv-name" placeholder="Ex: SC Braga" onchange="updateAdvName(this.value)">
+        <label>Adversário</label>
+        <input type="text" id="adv-name" onchange="updateAdvName(this.value)">
+        
+        <label>Prova / Torneio</label>
+        <input type="text" id="game-name" value="Troféu AVB/AVVC Iniciadas B Fem">
+        
+        <label>Local / Pavilhão</label>
+        <select id="pavilion-select" onchange="toggleOtherPavilion()">
+            <option value="ES ALCAIDES FARIA">ES ALCAIDES FARIA</option>
+            <option value="MUNICIPAL DE ADÃES">MUNICIPAL DE ADÃES</option>
+            <option value="outro">OUTRO (Digitar abaixo)</option>
+        </select>
+        <input type="text" id="other-pavilion" placeholder="Nome do Pavilhão" style="display:none;" onchange="sync()">
+
+        <div style="display:flex; gap:10px;">
+            <div style="flex:2;"><label>Data</label><input type="text" id="game-date" placeholder="Ex: 25/04 (Sáb)" onchange="sync()"></div>
+            <div style="flex:1;"><label>Hora</label><input type="text" id="game-time" placeholder="12:00" onchange="sync()"></div>
+        </div>
+        <button class="btn-whatsapp" onclick="gerarMensagem()"><span>💬</span> Copiar WhatsApp</button>
     </div>
     <div id="athlete-list"></div>
 </section>
 
-<section id="sets" class="section">
-    <div id="sets-container"></div>
-</section>
-
+<section id="sets" class="section"><div id="sets-container"></div></section>
 <section id="live" class="section">
     <div style="text-align:center; margin-bottom: 15px;">
         <select id="live-set-selector" onchange="changeSet(this.value)" style="background: var(--card); color: var(--primary); padding: 5px 10px; border-radius: 8px; font-weight: bold;">
             <option value="1">SET 1</option><option value="2">SET 2</option><option value="3">SET 3</option><option value="4">SET 4</option><option value="5">SET 5</option>
         </select>
     </div>
-
     <div class="scoreboard">
         <div style="text-align:center; flex:1;">
-            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">NÓS</span>
+            <span style="font-size:0.6rem; font-weight:800; color:#94a3b8;">FCA</span>
             <span class="score-num" id="score-home" onclick="removePoint('home')">0</span>
             <button class="score-btn" onclick="addPoint('home')">+ PONTO</button>
         </div>
@@ -116,11 +118,7 @@
     </div>
     <div class="live-court" id="live-court-render"></div>
 </section>
-
-<section id="logs" class="section">
-    <div id="logs-container" style="max-width: 500px; margin: auto;"></div>
-    <button onclick="clearLogs()" style="width:100%; max-width: 500px; display: block; margin: 20px auto; background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer;">LIMPAR HISTÓRICO</button>
-</section>
+<section id="logs" class="section"><div id="logs-container"></div><button onclick="clearLogs()" style="width:100%; background:var(--accent); color:white; border:none; padding:15px; border-radius:12px; margin-top:20px; font-weight:bold;">LIMPAR HISTÓRICO</button></section>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -147,82 +145,84 @@
         {n: 55, nome: "Matilde Loureiro"}, {n: 99, nome: "Carolina Braga"}
     ];
 
-    let state = { conv: [], sets: {}, advName: "ADV", logs: [] };
+    let state = { conv: [], sets: {}, advName: "ADV", logs: [], gameName: "Troféu AVB/AVVC Iniciadas B Fem", gameDate: "", gameTime: "", pavilion: "ES ALCAIDES FARIA", otherPavilion: "" };
     let liveState = { currentSet: "1", home: 0, away: 0, serving: 'home', currentLineup: ["?", "?", "?", "?", "?", "?"] };
 
     onSnapshot(doc(db, "gestao", "atual"), (snap) => {
         if(snap.exists()) {
             const data = snap.data();
-            state.conv = data.conv || [];
-            state.sets = data.sets || {};
-            state.advName = data.advName || "ADV";
-            state.logs = data.logs || [];
+            state = { ...state, ...data };
             document.getElementById('sync-status').style.display = 'block';
-            document.getElementById('adv-name').value = state.advName;
-            document.getElementById('adv-label').innerText = state.advName;
+            document.getElementById('adv-name').value = state.advName || "ADV";
+            document.getElementById('adv-label').innerText = state.advName || "ADV";
+            document.getElementById('game-name').value = state.gameName || "";
+            document.getElementById('game-date').value = state.gameDate || "";
+            document.getElementById('game-time').value = state.gameTime || "";
+            document.getElementById('pavilion-select').value = state.pavilion || "ES ALCAIDES FARIA";
+            document.getElementById('other-pavilion').value = state.otherPavilion || "";
+            toggleOtherPavilion(false);
         }
-        render();
+        window.render();
         initLiveSet();
     });
 
-    async function sync() { await setDoc(doc(db, "gestao", "atual"), state); }
+    window.sync = async () => { 
+        state.gameName = document.getElementById('game-name').value;
+        state.gameDate = document.getElementById('game-date').value;
+        state.gameTime = document.getElementById('game-time').value;
+        state.pavilion = document.getElementById('pavilion-select').value;
+        state.otherPavilion = document.getElementById('other-pavilion').value;
+        await setDoc(doc(db, "gestao", "atual"), state); 
+    };
 
     window.render = () => {
-        // Render Convocação
         const aList = document.getElementById('athlete-list');
-        aList.innerHTML = ATLETAS_PADRAO.map(a => `
+        if (aList) aList.innerHTML = ATLETAS_PADRAO.map(a => `
             <div class="athlete-card">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <div class="athlete-num">${a.n}</div>
-                    <span style="font-size:0.75rem; font-weight:600;">${a.nome}</span>
+                    <span style="font-size:0.75rem;">${a.nome}</span>
                 </div>
-                <input type="checkbox" class="switch" ${state.conv.includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
+                <input type="checkbox" class="switch" ${(state.conv || []).includes(a.n) ? 'checked' : ''} onchange="toggle(${a.n})">
             </div>
         `).join('');
 
-        // Render Quadras
         const sContainer = document.getElementById('sets-container');
-        const convocadas = state.conv.sort((a,b) => a-b);
-        sContainer.innerHTML = [1,2,3,4,5].map(s => `
-            <div class="set-mini-court">
-                <div style="font-size:0.8rem; font-weight:bold; color:var(--primary); margin-bottom:10px;">SET ${s}</div>
-                <div class="court-grid">
-                    ${[4,3,2,5,6,1].map(p => {
-                        const id = `s${s}p${p}`;
-                        const val = state.sets[id] || "";
-                        return `
-                        <div class="pos-box ${val ? 'occupied' : ''}">
-                            <label style="font-size:0.5rem; color:#94a3b8;">P${p}</label>
-                            <select onchange="updatePos('${id}', this.value)">
-                                <option value="">-</option>
-                                ${convocadas.map(n => `<option value="${n}" ${val == n ? 'selected' : ''}>${n}</option>`).join('')}
-                            </select>
-                        </div>`;
-                    }).join('')}
-                </div>
-            </div>
-        `).join('');
-
-        // Render Logs
-        document.getElementById('logs-container').innerHTML = state.logs.map(l => `
-            <div class="log-item">${l}</div>
-        `).join('') || "<p style='text-align:center; color:#64748b;'>Sem registos.</p>";
+        if (sContainer) {
+            const convocadas = (state.conv || []).sort((a,b) => a-b);
+            sContainer.innerHTML = [1,2,3,4,5].map(s => `
+                <div class="set-mini-court">
+                    <div style="font-size:0.8rem; font-weight:bold; color:var(--primary); margin-bottom:10px;">SET ${s}</div>
+                    <div class="court-grid">
+                        ${[4,3,2,5,6,1].map(p => {
+                            const id = `s${s}p${p}`;
+                            const val = (state.sets || {})[id] || "";
+                            return `<div class="pos-box ${val ? 'occupied' : ''}"><label style="font-size:0.5rem; color:#94a3b8;">P${p}</label>
+                                <select onchange="updatePos('${id}', this.value)"><option value="">-</option>
+                                ${convocadas.map(n => `<option value="${n}" ${val == n ? 'selected' : ''}>${n}</option>`).join('')}</select></div>`;
+                        }).join('')}
+                    </div>
+                </div>`).join('');
+        }
+        const lContainer = document.getElementById('logs-container');
+        if (lContainer) lContainer.innerHTML = (state.logs || []).map(l => `<div style="background:var(--card); padding:12px; border-radius:10px; margin-bottom:8px; border-left: 4px solid var(--primary); font-size: 0.85rem;">${l}</div>`).join('') || "<p style='text-align:center;'>Sem registos.</p>";
     };
 
-    window.toggle = (n) => {
-        state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n];
-        sync(); render();
+    window.toggle = (n) => { state.conv = state.conv.includes(n) ? state.conv.filter(i => i !== n) : [...state.conv, n]; sync(); };
+    window.updatePos = (id, val) => { state.sets[id] = val; sync(); };
+    window.updateAdvName = (v) => { state.advName = v.toUpperCase(); document.getElementById('adv-label').innerText = state.advName; sync(); };
+    
+    window.toggleOtherPavilion = (doSync = true) => {
+        const sel = document.getElementById('pavilion-select').value;
+        document.getElementById('other-pavilion').style.display = sel === 'outro' ? 'block' : 'none';
+        if(doSync) sync();
     };
 
-    window.updatePos = (id, val) => {
-        state.sets[id] = val;
-        sync(); render();
-    };
-
-    window.updateAdvName = (v) => {
-        state.advName = v.toUpperCase();
-        document.getElementById('adv-label').innerText = state.advName;
-        sync();
+    window.gerarMensagem = () => {
+        const pav = state.pavilion === 'outro' ? state.otherPavilion : state.pavilion;
+        let lista = ATLETAS_PADRAO.filter(a => state.conv.includes(a.n)).map(a => `➡ ${a.nome}`).join('\n');
+        let texto = `*${state.gameName}*\n\n🏟 *${pav}*\n📆 *${state.gameDate}*\n⏰ *${state.gameTime}*\n(Concentração 1h antes)\n\n*CONVOCADAS:*\n${lista}`;
+        navigator.clipboard.writeText(texto).then(() => alert("Copiado!"));
     };
 
     window.showTab = (tab) => {
@@ -235,61 +235,24 @@
 
     window.initLiveSet = () => {
         const s = liveState.currentSet;
-        liveState.currentLineup = [
-            state.sets[`s${s}p4`] || "?", state.sets[`s${s}p3`] || "?", state.sets[`s${s}p2`] || "?",
-            state.sets[`s${s}p5`] || "?", state.sets[`s${s}p6`] || "?", state.sets[`s${s}p1`] || "?"
-        ];
+        liveState.currentLineup = [state.sets[`s${s}p4`]||"?", state.sets[`s${s}p3`]||"?", state.sets[`s${s}p2`]||"?", state.sets[`s${s}p5`]||"?", state.sets[`s${s}p6`]||"?", state.sets[`s${s}p1`]||"?"];
         renderLive();
     };
-
-    window.addPoint = (t) => {
-        if(t === 'home') { if(liveState.serving === 'away') rotate(); liveState.home++; liveState.serving = 'home'; }
-        else { liveState.away++; liveState.serving = 'away'; }
-        renderLive();
-    };
-
-    window.removePoint = (t) => {
-        if(t === 'home' && liveState.home > 0) liveState.home--;
-        if(t === 'away' && liveState.away > 0) liveState.away--;
-        renderLive();
-    };
-
-    function rotate() {
-        const old = [...liveState.currentLineup];
-        liveState.currentLineup[5] = old[2]; liveState.currentLineup[4] = old[5]; 
-        liveState.currentLineup[3] = old[4]; liveState.currentLineup[0] = old[3];
-        liveState.currentLineup[1] = old[0]; liveState.currentLineup[2] = old[1];
-    }
 
     window.renderLive = () => {
         document.getElementById('score-home').innerText = liveState.home;
         document.getElementById('score-away').innerText = liveState.away;
         const court = document.getElementById('live-court-render');
         const labels = [4,3,2,5,6,1];
-        court.innerHTML = liveState.currentLineup.map((n, i) => `
-            <div class="live-pos">
-                <span class="pos-label">P${labels[i]}</span>${n}
-                ${(liveState.serving === 'home' && labels[i] === 1) ? '<div class="server-ball"></div>' : ''}
-            </div>
-        `).join('');
+        court.innerHTML = liveState.currentLineup.map((n, i) => `<div class="live-pos"><span class="pos-label">P${labels[i]}</span>${n}${(liveState.serving === 'home' && labels[i] === 1) ? '<div class="server-ball"></div>' : ''}</div>`).join('');
     };
 
-    window.changeSet = (s) => {
-        if (liveState.home > 0 || liveState.away > 0) {
-            state.logs.push(`SET ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} ${state.advName}`);
-        }
-        liveState.currentSet = s; liveState.home = 0; liveState.away = 0;
-        sync(); initLiveSet(); render();
-    };
-
-    window.checkPass = () => {
-        if(document.getElementById('passInput').value === 'volei2026') {
-            document.getElementById('login-screen').style.display = 'none';
-            render();
-        }
-    };
-    
-    window.clearLogs = () => { if(confirm("Limpar histórico?")) { state.logs = []; sync(); render(); } };
+    window.addPoint = (t) => { if(t === 'home') { if(liveState.serving === 'away') rotate(); liveState.home++; liveState.serving = 'home'; } else { liveState.away++; liveState.serving = 'away'; } renderLive(); };
+    window.removePoint = (t) => { if(t === 'home' && liveState.home > 0) liveState.home--; if(t === 'away' && liveState.away > 0) liveState.away--; renderLive(); };
+    function rotate() { const old = [...liveState.currentLineup]; liveState.currentLineup[5]=old[2]; liveState.currentLineup[4]=old[5]; liveState.currentLineup[3]=old[4]; liveState.currentLineup[0]=old[3]; liveState.currentLineup[1]=old[0]; liveState.currentLineup[2]=old[1]; }
+    window.changeSet = (s) => { if (liveState.home > 0 || liveState.away > 0) state.logs.push(`SET ${liveState.currentSet}: FCA ${liveState.home} - ${liveState.away} (${state.advName})`); liveState.currentSet = s; liveState.home = 0; liveState.away = 0; sync(); initLiveSet(); };
+    window.checkPass = () => { if(document.getElementById('passInput').value === 'volei2026') { document.getElementById('login-screen').style.display = 'none'; render(); } };
+    window.clearLogs = () => { if(confirm("Limpar histórico?")) { state.logs = []; sync(); } };
 </script>
 </body>
 </html>
