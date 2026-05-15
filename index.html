@@ -24,7 +24,7 @@
 
         /* Barra de Navegação */
         .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 450px; background: rgba(30, 41, 59, 0.95); display: flex; padding: 6px; border-radius: 20px; border: 1px solid var(--border); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.7rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
+        .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; font-weight: 700; color: #64748b; cursor: pointer; border-radius: 15px; transition: 0.3s; }
         .nav-item.active { background: var(--primary); color: var(--bg); }
 
         .section { display: none; padding: 10px; animation: fadeIn 0.3s ease; }
@@ -205,7 +205,7 @@
         gameTime: "", 
         pavilion: "ES ALCAIDES FARIA", 
         otherPavilion: "",
-        roles: {}, // Novo campo para funções táticas
+        roles: {},
         atletas: [
             {n: 1, nome: "Carla Rodrigues"}, {n: 3, nome: "Barbara Fernandes"}, {n: 6, nome: "Matilde Rocha"},
             {n: 7, nome: "Matilde Silva"}, {n: 9, nome: "Nataliia Karpets"}, {n: 10, nome: "Maria Luisa Soutelo"},
@@ -437,10 +437,12 @@
             </div>
         `).join('');
 
-        // Mini Quadras de Estratégia
+        // Mini Quadras de Estratégia (com filtro de exclusão)
         document.getElementById('sets-container').innerHTML = [1,2,3,4,5].map(s => {
             const res = validarSet(s);
             const convocadas = state.atletas.filter(a => state.conv.includes(a.n)).sort((a,b)=>a.n-b.n);
+            const usadasNesteSet = [1,2,3,4,5,6].map(p => state.sets[`s${s}p${p}`]).filter(v => v);
+
             return `
             <div class="set-mini-court">
                 <div style="font-size:0.75rem; font-weight:800; color:var(--primary); margin-bottom:8px; display:flex; justify-content:space-between;">
@@ -455,7 +457,10 @@
                             <label style="font-size:0.45rem; color:#94a3b8;">P${p}</label>
                             <select onchange="updatePos('${id}', this.value)">
                                 <option value="">-</option>
-                                ${convocadas.map(a => `<option value="${a.n}" ${cur == a.n ? 'selected' : ''}>${a.n}</option>`).join('')}
+                                ${convocadas.map(a => {
+                                    const jaUsada = usadasNesteSet.includes(String(a.n)) && cur != String(a.n);
+                                    return jaUsada ? '' : `<option value="${a.n}" ${cur == a.n ? 'selected' : ''}>${a.n}</option>`;
+                                }).join('')}
                             </select>
                         </div>`;
                     }).join('')}
